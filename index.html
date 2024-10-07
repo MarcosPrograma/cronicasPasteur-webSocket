@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crónicas de Pasteur</title>
+  <link rel="shortcut icon" href="src/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="src/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+  <!-- ------------------------ Pantalla de carga ------------------------ -->
+  <div id="pantalla-carga">
+    <img src="src/gift/gifPortal.gif" alt="Portal de Pasteur ilustrado">
+    <div id="barra-carga-contenedor">
+      <div id="barra-carga"></div>
+    </div>
+  </div>
+
+  <div id="contenido-principal">
+
+    <!-- ------------------------ Canvas ------------------------ -->
+    <div class="escena">
+      <canvas class="escena-canvas"></canvas>
+    </div>
+
+    <!-- ------------------------ Header ------------------------ -->
+    <header>
+      <img src="src/img/logo.png" alt="Logo de Crónicas de Pasteur" data-target="acercaDe">
+      <h1 class="header-title" data-target="acercaDe">Crónicas de Pasteur</h1>
+    </header>
+
+    <!-- ------------------------ Barra de navegacion ------------------------ -->
+    <nav class="nav">
+      <ul class="nav-list">
+        <li><a id="mostrarStepper" href="#">Controles</a></li>
+        <li><a id="abrirMenu" href="#">Menú</a></li>
+      </ul>
+    </nav>
+
+    <!-- ------------------------ Stepper ------------------------ -->
+    <div id="stepperFondo-overlay">
+      <div id="stepper-overlay">
+        <div class="stepper">
+          <div class="step activo" data-step="1">
+            <h2>¡Bienvenidos a Crónicas de Pasteur!</h2>
+            <img src="src/img/bannerStepper.jpg" alt="Plano aéreo de la plaza central">
+            <p><br><b>Pasteur</b> es una pequeña localidad situada en el noroeste de la provincia de Buenos Aires,
+              Argentina, y forma parte del partido de Lincoln. Fue fundada en 1909 por el comerciante español Manuel
+              Antonio García Meijón. Pasteur es la tercera localidad más poblada del partido de Lincoln.<br>
+              <br>El nombre de la localidad fue dado por tres amigos que se hallaban por zonas
+              aledañas. Al observar algunas de las pocas casas levantadas en la lejanía, comenzaron a seleccionar
+              nombres.
+              Se decidió que se llamaría Pasteur por el biólogo y químico francés, Louis Pasteur (1822-1898).
+            </p>
+            <button class="cierreStepper">Saltar</button>
+            <button class="siguiente-step">Siguiente</button>
+          </div>
+          <div class="step" data-step="2">
+            <h2>Cómo moverse en el entorno</h2>
+            <img src="src/gift/gifStepper1.gif" alt="Mouse siendo cliceado, presionado y usando la rueda">
+            <p><br><b>Controles</b></p>
+            <p><br><b>Clic izquierdo o tocar la pantalla:</b> Seleccionar elemento o punto de interés</p>
+            <p><b>Presionando clic izquierdo o tocando la pantalla:</b> Rotación de la cámara</p>
+            <p><b>Rueda del ratón o pellizcar la pantalla:</b> Zoom de la cámara</p>
+            <button class="cierreStepper">Saltar</button>
+            <button class="siguiente-step">Siguiente</button>
+          </div>
+          <div class="step" data-step="3">
+            <h2>Cómo interactuar en el entorno</h2>
+            <img src="src/gift/gifStepper2.gif" alt="Clikeando un cubo">
+            <p><br><b>Interacción</b></p>
+            <p><br>Dentro del entorno existen varios puntos y elementos interactuables, desde instituciones hasta
+              objetos.
+              Podrás seleccionar alguno de ellos y clicarlo con el botón izquierdo del ratón o tocando la pantalla para
+              mostrar información
+              sobre
+              el mismo.
+              Se desplegará sobre el lado derecho un panel con información sobre su fundación o biografía, fotos
+              históricas
+              o contenido relacionado. </p>
+            <button class="cierreStepper">Saltar</button>
+            <button class="final-step">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------------ Menú ------------------------ -->
+    <div id="panel_menu">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>Localidad de Pasteur</h2>
+      <div class="panel_menu_opciones">
+        <div class="panel_menu_opciones_botones">
+          <button class="abrir" data-target="panel1">1. Manuel Antonio García Meijón</button>
+          <button class="abrir" data-target="panel2">2. La Piamontesa</button>
+          <button class="abrir" data-target="panel3">3. Estación de ferrocarril de Pasteur</button>
+          <button class="abrir" data-target="panel4">4. Escuela Primaria N°22</button>
+          <button class="abrir" data-target="panel5">5. Parroquia Nuestra Señora del Carmen</button>
+          <button class="abrir" data-target="panel6">6. María Herminia Avellaneda</button>
+          <button class="abrir" data-target="panel7">7. Dr. Raúl Alberto Cabaleiro"</button>
+          <button class="abrir" data-target="panel8">8. Club Atlético Pasteur y Ferro Carril Oeste</button>
+          <button class="abrir" data-target="panel9">9. Unidad Sanitaria</button>
+          <button class="abrir" data-target="panel10">10. Jardin de Infantes N°902</button>
+          <button class="abrir" data-target="panel11">11. Escuela Educación Secundaria N°7</button>
+          <button class="abrir" data-target="panel12">12. Trío Pasteur</button>
+          <button class="abrir" data-target="panel13">13. Centro Educativo Complementario N°803</button>
+          <button class="abrir" data-target="panel14">14. Festival Nacional de Folklore de Pasteur</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------------ Puntos de interes ------------------------ -->
+    <div id="marcadores-contenedor"></div>
+
+    <!-- ------------------------ Panel desplegables ------------------------ -->
+    <div id="divInvisible"></div>
+    <div id="panel1" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/manuelAntonio1.jpg" alt="Manuel Antonio García Meijón" class="carrusel-imagen">
+          <img src="src/img/manuelAntonio2.jpg" alt="Manuel Antonio García Meijón en su escritorio"
+            class="carrusel-imagen">
+          <img src="src/img/manuelAntonio3.jpg" alt="Manuel Antonio García Meijón en el patio de su casa"
+            class="carrusel-imagen">
+          <img src="src/img/manuelAntonio4.jpg"
+            alt="Manuel Antonio García Meijón comiendo un asado con amigos en Pasteur" class="carrusel-imagen">
+          <img src="src/img/manuelAntonio5.jpg" alt="autoretrato de Manuel Antonio García Meijón"
+            class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Manuel Antonio García Meijón (1856-1942)</h2>
+      <p><br>Nació el 5 de abril de 1856 en el pueblo de Cotobad, Galicia, España. Sus padres fueron José
+        García y
+        María Meijón. Arribó a nuestro país en 1874 y comenzó a trabajar en una despensa de la ciudad de Junín, así como
+        también lo hizo en las ciudades de San Antonio de Areco y San Andrés de Giles. En 1882 se estableció en Lincoln
+        y
+        creó su cadena de almacenes, llamada "El Sol de Mayo", la cual trasladó a las distintas localidades que fundó,
+        entre ellas Arenaza (1904), Martínez de Hoz (1904), Bermúdez (1909), El Triunfo (1909), Pasteur (1909) y Roberts
+        (1916).</br>
+        <br>Asimismo, fue uno de los socios fundadores de la Sociedad Española de Socorros Mutuos (1884), la
+        Biblioteca
+        Escolar Popular Pestalozzi (1889) y el Banco Popular de Lincoln (1903). Propietario de grandes extensiones de
+        campo, se interesó por el progreso de la región, y su gestión hizo posible la construcción de la línea
+        ferroviaria
+        de Los Toldos a Ingeniero Luiggi, que pasaba por varias localidades de Lincoln. También se dedicó a la compra y
+        venta de cereales en varias zonas del país, e incluso realizó experimentos con semillas que importaba desde
+        Europa, por lo que a su campo lo llamó "La Experimental".</br>
+        <br>Quebrado económicamente a causa de la sequía en 1911 y las inundaciones de 1912 a 1914, se instaló en
+        Pasteur,
+        donde pasó sus últimos años de vida. Enfermó gravemente y falleció en el Hospital Español a los 86 años en
+        Buenos
+        Aires, el 6 de agosto de 1942. Sus restos descansan en el Cementerio de Lincoln, en el Panteón de la Sociedad
+        Española de Socorros Mutuos.</br>
+      </p>
+    </div>
+
+    <div id="panel2" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/piamontesa1.jpg" alt="Fachada frontal del hotel" class="carrusel-imagen">
+          <img src="src/img/piamontesa2.jpg" alt="Patio del hotel" class="carrusel-imagen">
+          <img src="src/img/piamontesa3.jpg" alt="Fachada lateral del hotel" class="carrusel-imagen">
+          <img src="src/img/piamontesa4.jpg" alt="Fachada frontal del hotel antes de ser derrumbado"
+            class="carrusel-imagen">
+          <img src="src/img/piamontesa5.jpg" alt="Fachada frontal del hotel pre-demolición" class="carrusel-imagen">
+          <img src="src/img/piamontesa6.jpg" alt="Adentro del hotel pre-demolición" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>La Piamontesa</h2>
+      <p><br>La Piamontesa de los dueños Alais y Gagliardi, fue un hotel y restaurante fundado en 1908, el cual se
+        convirtió en el
+        refugio perfecto para el fundador durante sus visitas a la localidad.<br>
+        <br>Durante sus años de funcionamiento, este establecimiento recibió a innumerables huéspedes que disfrutaron de
+        sus cómodas habitaciones y su elegante comedor. La Piamontesa era famosa por la calidad y variedad de sus
+        comidas
+        italianas y los mejores vinos y bebidas alcohólicas importadas.
+        Entre sus huéspedes destacados estuvieron el Dr. Abatte y el Dr. Raúl Alberto Cabaleiro. También, actores y
+        actrices como Norman Brisky, Perla Santalla, Eva Franco y los hermanos Aída y Jorge Luz se hospedaron aquí
+        durante
+        el rodaje de la película "Juguemos en el Mundo" dirigida por María Herminia Avellaneda.<br>
+        <br>El 22 de marzo de 1980, a las 9 horas, comenzó el remate de la colección de bebidas añejas, elementos,
+        utilidades, muebles, vajillas y antigüedades que formaban parte del aclamado hotel. Posteriormente, el edificio
+        fue derrumbado y, en la actualidad, el terreno se encuentra baldío.<br>
+      </p>
+    </div>
+
+    <div id="panel3" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/estacion1.jpg" alt="Llegada del tren" class="carrusel-imagen">
+          <img src="src/img/estacion2.jpg" alt="Tren en el andén" class="carrusel-imagen">
+          <img src="src/img/estacion3.jpg" alt="Auxiliar en la oficina de la estación" class="carrusel-imagen">
+          <img src="src/img/estacion4.jpg" alt="Llegada del tren" class="carrusel-imagen">
+          <img src="src/img/estacion5.jpg" alt="Estación del tren desde la playa" class="carrusel-imagen">
+          <img src="src/img/estacion6.jpg" alt="Vagón de tren abandonado" class="carrusel-imagen">
+          <img src="src/img/estacion7.jpg" alt="Fotografía en el tren" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Estación de Ferrocarril de Pasteur</h2>
+      <p><br>El Ferrocarril Oeste de Buenos Aires (FCO), inaugurado el 29 de agosto de 1857, fue el primero construido
+        en
+        Argentina. Este mismo se renombró como Ferrocarril Domingo Faustino Sarmiento.
+        El terraplén del ferrocarril en Pasteur se levantó en 1909, pero el primer tren de pasajeros pasó el 15 de julio
+        de 1910. Fue Manuel Antonio García Meijón, quien gestionó la construcción de la línea ferroviaria desde Los
+        Toldos
+        hacia
+        Ingeniero Luiggi.<br>
+        <br>La estación operaba diariamente, con trenes de pasajeros que viajaban desde Once a Pasteur de lunes a
+        viernes
+        y de Once a Ingeniero Luiggi los martes y sábados por la tarde. El recorrido duraba aproximadamente 7 horas. Los
+        menores de 3 años pagaban medio boleto, mientras que los mayores pagaban el boleto completo.
+        Los trenes de carga, que transportaban ganado vacuno y porcino, cereales y lana ovina, operaban los lunes y
+        sábados hacia la Estación Mecha (cercana a Bragado). Generalmente, el ganado iba al matadero y la lana se vendía
+        en el mercado de Avellaneda.<br>
+        <br>Se trabajaba en dos turnos de ocho horas: uno comenzaba a las 4:00 a.m. y el otro a las 4:00 p.m. El trabajo
+        incluía atención al público, limpieza de la estación, movimientos en la playa y control de señales. El equipo
+        estaba formado por un jefe de estación y dos auxiliares, quienes ejecutaban las órdenes y podían ser
+        transferidos
+        a otras estaciones cercanas.
+        Los pasajeros habituales eran pobladores locales que viajaban a diversos destinos. También había un comisionista
+        que viajaba regularmente desde Once a Pasteur y viceversa. Las encomiendas, como aves de corral y conejos, se
+        despachaban en coches particulares para encomiendas.
+        La comunicación con el resto de las estaciones se realizaba mediante telégrafo o por medio de un teléfono
+        interno.
+        En caso de emergencia, se usaba la unión telefónica o se daba aviso al maquinista para que procediera con
+        precaución si no había comunicación con la siguiente estación.<br>
+        <br>La actividad de la estación comenzó a declinar con las privatizaciones durante el gobierno de Menem. A
+        partir
+        de entonces, el tren dejó de operar rutinariamente y solo era solicitado por estaciones vecinas. El último
+        empleado fue despedido el 28 de febrero de 2002.
+        La estación ya no presta servicios de pasajeros y sus vías, concesionadas a Ferroexpreso Pampeano, están
+        inactivas y en estado de abandono. La estación se encuentra a 376,5 km de la Estación Once. Aunque ya no se usa
+        para el transporte ferroviario, las instalaciones se han adaptado para albergar diversos talleres y actividades,
+        así como una Biblioteca y Museo Municipal.<br>
+      </p>
+    </div>
+
+    <div id="panel4" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/escuelaPrimaria1.jpg" alt="Fachada de la escuela en el año 1986" class="carrusel-imagen">
+          <img src="src/img/escuelaPrimaria2.jpg" alt="Patio de la escuela" class="carrusel-imagen">
+          <img src="src/img/escuelaPrimaria3.jpg" alt="Curso realizando una actividad afuera" class="carrusel-imagen">
+          <img src="src/img/escuelaPrimaria4.jpg" alt="Teatro en la escuela" class="carrusel-imagen">
+          <img src="src/img/escuelaPrimaria5.jpg" alt="Inicio del ciclo lectivo" class="carrusel-imagen">
+          <img src="src/img/escuelaPrimaria6.jpg" alt="Patio de la escuela" class="carrusel-imagen">
+          <img src="src/img/escuelaPrimaria7.jpg" alt="Egresados en el fin del ciclo lectivo" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Escuela Primaria N°22 "Luis Pasteur"</h2>
+      <p><br>Fue fundada en marzo de 1911 y comenzó a funcionar el 20 de septiembre del mismo año con la concurrencia de
+        30 alumnos. La primera maestra y directora fue Amelia Canaveri, quien se jubiló en 1915. En ese entonces, la
+        institución funcionaba en la esquina de la calle Mitre (posteriormente, se hallaría la Heladería de Modad).
+        Luego fue trasladada en 1920 al local de los señores Uboldi sobre la calle Juan Bautista Alberdi (actualmente,
+        se encuentra la Escuela de Educación Secundaria N°7 “Mariano Moreno”). Hasta ese entonces, se dictaban clases
+        hasta 4.º grado en dos turnos: mañana (3.º y 4.º grado) y tarde (1.º y 2.º grado).</br>
+        <br>En 1924, se trasladó al local de José Brambilla en la calle 9 de Julio (actualmente, se hallan las hermanas
+        Urriza) y estaba conformada por dos salones separados por dos tabiques simples y un cuarto para la dirección. El
+        cuerpo docente de ese momento estaba constituido por las hermanas Moglia, Videla, Audición, Ríos, Angélica
+        Deluchi, Magdalena Bongiorno, María Trono, Irma Travellay y Rodríguez Naso.</br>
+        <br>En 1931, se trasladó al local de la Panadería Iturmendi y luego al local de Blas Trubbo, en la esquina de la
+        calle Juan Veintitrés (donde se localiza el Banco Provincia). Además, se logró agregar hasta 6.º grado, llegando
+        nuevos docentes a la institución: Teresa Repossi, Sara Arribalzaga, María Pérez, Josefina Caivano, Luisa Di
+        Sarli, María Casani y Soifer.</br>
+        <br>El 9 de julio de 1940, se colocó en la fachada de la escuela la placa de “Louis Pasteur”, nombre designado
+        por el Honorable Consejo de la Educación de La Plata. El 25 de octubre de 1942, se recibió una nota de la
+        Dirección General de la Escuela del 28 de septiembre para adquirir un terreno y levantar el edificio de la
+        institución. Además, se dieron facultades para adquirir los terrenos situados frente a la plaza principal, donde
+        se encuentra actualmente.<br>
+        <br>En 1947, funcionaba en el terreno de la Sra. Araceli Betbeder frente a la plaza. En noviembre de 1958, se
+        presentó una solicitud por el mal estado del edificio, lo que obligó a dictar clases al aire libre. Se trasladó
+        al edificio de la Ex-Sociedad Italiana hasta finalizar el ciclo lectivo. En 1961, se ubicó en el terreno de
+        Chola Moralejo en casillas rodantes. En 1963, comenzó a funcionar en el edificio actual frente a la Plaza San
+        Martín.<br>
+        <br>En 1997, se incorporaron 7.º y 8.º año articulados con el Instituto Mariano Moreno. En 1998, se realizó una
+        ampliación del edificio, con reparaciones en los baños y la construcción de una dirección y una secretaría. En
+        1999, se comenzó a construir el Salón de Usos Múltiples (SUM) a cargo de la municipalidad.<br>
+        <br>Con el transcurso de los años, se incorporó también el bachillerato para adultos y talleres en contraturno
+        para los alumnos. Además, se realizó un aula para computación y se recibieron computadoras, libros, entre otros
+        objetos que fueron donados o adquiridos<br>
+      </p>
+    </div>
+
+    <div id="panel5" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/parroquiaNuestraSenora1.jpg" alt="Parroquia en día de nevada" class="carrusel-imagen">
+          <img src="src/img/parroquiaNuestraSenora2.jpg" alt="Primera fiesta patronal" class="carrusel-imagen">
+          <img src="src/img/parroquiaNuestraSenora3.jpg" alt="Fiesta patronal en la localidad" class="carrusel-imagen">
+          <img src="src/img/parroquiaNuestraSenora4.jpg" alt="Fiesta patronal" class="carrusel-imagen">
+          <img src="src/img/parroquiaNuestraSenora5.jpg" alt="Primera boda" class="carrusel-imagen">
+          <img src="src/img/parroquiaNuestraSenora6.jpg" alt="Ampliación de la parroquia" class="carrusel-imagen">
+          <img src="src/img/parroquiaNuestraSenora7.jpg" alt="Lateral de la parroquia" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Parroquia Nuestra Señora del Carmen</h2>
+      <p><br>La piedra fundamental data del 1 de septiembre de 1912 en el terreno donado por el fundador, Manuel
+        Antonio
+        García Meijón. Anteriormente, las primeras misas se dieron en un antiguo cine.
+        Las primeras confirmaciones se concedieron en 1922 y los primeros bautismos en 1923.
+        La iglesia fue destruida poco tiempo después de haber sido construida por un fuerte viento. En 1930, se formó
+        una
+        comisión para la “Restauración de la Iglesia Nuestra Señora del Carmen”. La inauguración del templo se realizó
+        el 14 de julio de 1932 y se le dio el nombre de “Nuestra Señora del Carmen”, estando a cargo de la parroquia de
+        Roberts. El 16 de julio del mismo año se otorgó la bendición de la obra de reconstrucción de la iglesia y la
+        casa
+        parroquial.</br>
+        <br>En 1931, se celebraron las primeras fiestas patronales, dando inicio a una tradición que continuaría en los
+        años
+        posteriores. La primera boda se celebró en 1934.
+        El 13 de noviembre de 1965, el Padre Carlos Mullins se hizo cargo de la capilla y comenzó a residir en la casa
+        parroquial en Pasteur, aledaña al templo. En 1966 se otorgó la bendición al Monumento de la Madre. Durante este
+        año, se autorizó la utilización del guardapolvo escolar para las comuniones.</br>
+        <br>En 1976, se inició la construcción del polideportivo, que se encontraría en la parte trasera de la capilla.
+        En 1980, el curso de catecismo comenzó a dictarse con una duración de dos años de preparación. En 1983, se
+        construyó el salón parroquial, aledaño a la parroquia. Asimismo, el 1 de octubre de 1985 comenzó la ampliación
+        del
+        templo. El 3 de mayo de 1985, obtuvo el rango de Cuasiparroquia y en 2004 fue anexada a Roberts por decreto
+        episcopal.
+        En 2000, se comenzó a utilizar la sala de catequesis y el 11 de abril de 2005 volvió a tener el rango de
+        capilla.</br>
+      </p>
+    </div>
+
+    <div id="panel6" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/mariaHerminia_Jugemos1.jpg" alt="Fotografía de Maria Herminia Avellaneda"
+            class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos2.jpg" alt="Fotografía de Maria Herminia Avellaneda"
+            class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos3.jpg" alt="Fotografía de Maria Herminia Avellaneda"
+            class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos4.jpg"
+            alt="Maria Herminia Avellaneda y Maria Elena Walsh en la plaza central" class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos5.jpg" alt="Rodaje de juguemos en el mundo" class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos6.jpg" alt="Backstage de jugemos en el mundo" class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos7.jpg" alt="Backstage de juguemos en el mundo" class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos8.jpg" alt="Cena antes del estreno" class="carrusel-imagen">
+          <img src="src/img/mariaHerminia_Jugemos9.jpg" alt="Estreno en el cine de Pasteur" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>María Herminia Avellaneda (1933-1997)</h2>
+      <p><br>Nació el 3 de noviembre de 1933 en Pasteur, Lincoln, Buenos Aires. Fue una destacada cineasta y productora
+        argentina, reconocida por su contribución al cine y la televisión del país.<br>
+        <br>Comenzó su carrera en la televisión a los 22 años y dedicó más de cuatro décadas a dignificar este medio,
+        convirtiéndose en una pionera del género. En 1984, se convirtió en la directora artística de ATC (Argentina
+        Televisora Color), dejando una huella significativa en la industria con su enfoque feminista y su pasión por la
+        calidad artística. Avellaneda también fue conocida por su capacidad para contar historias y su espíritu
+        generoso,
+        tanto en su vida personal como profesional.
+        <br>
+        <br>En 1971, filmó su primer largometraje, "Juguemos en el mundo", basado en un guión de María Elena Walsh. En
+        1980, realizó su segundo film, "Rosa de lejos", protagonizado por Leonor Benedetto (versión fílmica de una
+        exitosa
+        telenovela).
+        Entre sus logros, destaca su esfuerzo por promover la libertad, la solidaridad y la dignificación de la mujer a
+        través de su trabajo. En 1981, recibió el Diploma al Mérito de los Premios Konex como una de las cinco mejores
+        directoras de televisión de Argentina.
+        <br>Falleció víctima de un cáncer a los 63 años el 7 de julio de 1997 en Buenos Aires.<br>
+      </p>
+      <h2>Juguemos en el mundo (1971)</h2>
+      <p><br>"Juguemos en el mundo" es un film argentino de 1971 dirigido por María Herminia Avellaneda y escrito por
+        María Elena Walsh. La película, una comedia de 1 hora y 45 minutos, narra las aventuras de Doña Disparate y
+        Bambuco, quienes, cansados de la vida en la ciudad, huyen en su coche destartalado y llegan por casualidad a un
+        pueblito de La Pampa. Allí, revolucionan la aldea, asumen el gobierno temporalmente y luego se marchan. La
+        película mezcla fantasía ingenua con sátira política​. <br>
+        <br>Fue rodada casi en su totalidad en Pasteur, incluso muchos de los pobladores participaron del rodaje,
+        conviviendo con varios artistas nacionales como Virgina Lago, Norman Briski, Jorge y Aída Luz, Hugo Caprera y
+        Eva
+        Franco.<br>
+      </p>
+      <h2>Contenido relacionado</h2>
+      <div class="botonesPaneles">
+        <a href="https://www.imdb.com/title/tt0179254/" target="_blank"><button>Ver ficha técnica</button></a>
+        <a href="https://youtu.be/bjCvkB4Bf3Q" target="_blank"><button>Ver película</button></a>
+      </div>
+    </div>
+
+    <div id="panel7" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/drRaulCabaleiro1.jpg" alt="Foto de libreta de enrolamiento" class="carrusel-imagen">
+          <img src="src/img/drRaulCabaleiro2.jpg" alt="Raúl Cabaleiro en el casamiento de su hija"
+            class="carrusel-imagen">
+          <img src="src/img/drRaulCabaleiro3.jpg" alt="Acto en la Unidad Sanitaria" class="carrusel-imagen">
+          <img src="src/img/drRaulCabaleiro4.jpg" alt="Familia Cabaleiro" class="carrusel-imagen">
+          <img src="src/img/drRaulCabaleiro5.jpg" alt="Raúl Cabaleiro con su hija" class="carrusel-imagen">
+          <img src="src/img/drRaulCabaleiro6.jpg" alt="Raúl Cabaleiro con su esposa" class="carrusel-imagen">
+          <img src="src/img/drRaulCabaleiro7.jpg" alt="Raúl cuidando de su huerta" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Dr. Raúl Alberto Cabaleiro (1919-2001)</h2>
+      <p><br>Nació el 4 de septiembre de 1919. En la capital, prestó servicios en el Hospital Rivadavia, en la Dirección
+        General de Sanidad del Ejército como médico de tropa del Hospital Militar Central, como subteniente médico jefe
+        de la Sección Sanidad del Comando de la 5ª División, y como médico del trabajo del Ministerio de Salud Pública
+        de la Nación.</br>
+        <br>En Pasteur, trabajó como médico interino en la Unidad Sanitaria y se hospedaba en el Hotel "La Piamontesa".
+        Se casó con Etelvina Justa y formaron una familia con 8 hijos (Gloria, Raúl, Adriana, Silvia, Ernesto, Horacio,
+        Gabriela y María) y 29 nietos y bisnietos. Cabe señalar que, deseó que todas sus nietas se llamen María, dado
+        que cuando alcanzará una edad muy avanzada y haya olvidado lo que conocía, diría un solo nombre: María, viniendo
+        todas esas niñas. Incluso, cuando él todavía tenía vida, se quemó una lamparita, donde se dibujó la letra “M” de
+        María en un celeste-azulado con un manto detrás.</br>
+        <br>Como médico de la localidad, ayudó a quienes lo necesitaban sin importar la hora o las condiciones
+        climáticas, ya fuera desde su consultorio, en la Unidad Sanitaria o en el domicilio de la persona. También
+        trabajó incansablemente por el Colegio Secundario, llegando a ser el director de la institución. Fue él quien
+        propuso que el nombre del colegio fuera "Mariano Moreno", ya que era un seguidor de sus ideas. Además, integró
+        las comisiones del Club Atlético Pasteur y Ferro Carril Oeste y la Cooperativa Eléctrica.</br>
+        </br>Es recordado por la comunidad de Pasteur por ser una persona analítica, fiel, amigable, capaz, humilde y
+        con buenos sentimientos. No solo prestó servicios al pueblo, sino que ofreció lo que su cuerpo y su sabiduría
+        podían, destacándose por su humildad, profesionalidad y calidad humana con los vecinos de la localidad. Falleció
+        el 10 de marzo de 2001. Actualmente, es considerado el máximo referente de Pasteur y el geriátrico de la
+        localidad lleva su nombre.</br>
+      </p>
+    </div>
+
+    <div id="panel8" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/clubAtleticoPasteur1.jpg" alt="Equipo del CAPYFCO" class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur2.jpg" alt="Campeones del 57" class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur3.jpg" alt="Partido contra Estudiantes de La Plata"
+            class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur4.jpg" alt="Festejo tras conseguir el campeonato en el 73"
+            class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur5.jpg" alt="Festejo tras conseguir el campeonato en el 73"
+            class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur6.jpg" alt="Festejo tras conseguir el campeonato en el 73"
+            class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur7.jpg" alt="Partido de local" class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur8.jpg" alt="Foto de jugadores en un partido local"
+            class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur9.jpg" alt="Comisión con el trofeo conseguido" class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur10.jpg" alt="Comisión con el trofeo conseguido" class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur11.jpg" alt="Cena de campeones" class="carrusel-imagen">
+          <img src="src/img/clubAtleticoPasteur12.jpg" alt="Fotografía antes del gol" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Club Atlético Pasteur y Ferro Carril Oeste</h2>
+      <p><br>En 1943, existían dos importantes clubes que competían por la supremacía futbolística en el pueblo. Ante
+        problemas económicos, surgió la idea de fusionar al Club Atlético Pasteur y al Club Ferrocarril Oeste. A través
+        de una asamblea extraordinaria, los presidentes Alberto Guidobono y Juan José Giorello informaron la decisión.
+        Se acordó unir los nombres y adoptar la camiseta con los colores verde y blanco. La fundación del Club Atlético
+        Pasteur y Ferrocarril Oeste se oficializó el 1 de enero de 1944.</br>
+        <br>La sede social se encuentra en la Avenida Mitre y cuenta con un buffet, una casa habitación para el conserje
+        y un salón de fiestas, que fue inaugurado en 1946 con un gran baile. Asimismo, disponían de un campo de
+        deportes, canchas auxiliares e iluminación para encuentros nocturnos.</br>
+        <br>En 1957, participaron en el campeonato y obtuvieron su primer título en una de las cuatro zonas que
+        integraban la Liga del Oeste de América. Posteriormente, atravesaron un período de inactividad deportiva hasta
+        su afiliación a la Liga de Ameghino de Fútbol, que incluía al Club Deportivo Granada, Deportivo Pinto, Club
+        Pintense, Sarmiento de Pinto, Sarmiento de Ameghino, Club Atlético Blaquier y Club Atlético Ameghino.</br>
+        <br>Cabe destacar que los fondos para la campaña futbolística eran insuficientes, por lo que los habitantes de
+        Pasteur comenzaron a recaudar dinero para apoyar al club y mantener las instalaciones (es decir, sembrar el
+        campo, mejorar el alambrado, baños, vestuarios, etc.). El primer juego de camisetas fue donado por
+        una reconocida e importante firma agrícola-ganadera.<br>
+        <br>En 1973, consiguieron su segundo título en su propia cancha, tras derrotar por 3 a 1 al Club Sarmiento de
+        Ameghino.<br>
+      </p>
+    </div>
+
+    <div id="panel9" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>Unidad Sanitaria</h2>
+      <p>Inició sus actividades el 11 de octubre de 1950 y fue inaugurada oficialmente el 12 de noviembre del mismo
+        año. En un principio, contaba con un médico directo, una enfermera recibida y dos enfermeras sin título, además
+        de cinco empleados. La instalación tiene cuatro salas de internación (dos grandes y dos chicas), una sala de
+        operaciones, una sala de parto, una sala de rayos, un consultorio, una morgue, una farmacia, una sala de
+        enfermería de guardia, una sala de esterilizar. El radio que cubría dicha institución comprendía a pueblos
+        cercanos como Porvenir, Encina, Timote, Necol, entre otros. El promedio de internados y atendidos era de diez
+        personas por día, además de inyecciones que se colocan permanentemente. La asistencia que se prestaba es de
+        aplicaciones de rayos, operaciones y partos, entre otros.</br>
+      </p>
+    </div>
+
+    <div id="panel10" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/jardinInfantes1.jpg" alt="Fachada del Jardin" class="carrusel-imagen">
+          <img src="src/img/jardinInfantes2.jpg" alt="Inauguración del Jardin" class="carrusel-imagen">
+          <img src="src/img/jardinInfantes3.jpg" alt="Aula en la casa-habitación" class="carrusel-imagen">
+          <img src="src/img/jardinInfantes4.jpg" alt="Primeras promociones" class="carrusel-imagen">
+          <img src="src/img/jardinInfantes5.jpg" alt="Acto en el nuevo edificio" class="carrusel-imagen">
+          <img src="src/img/jardinInfantes6.jpg" alt="Fiesta de educación fisica" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Jardin de Infantes N°902 “Sara Chamberlain De Eccleston”</h2>
+      <p><br>Es un jardín de infantes rural de gestión pública ubicado en la Avenida San Martín. Su historia comienza en
+        el año 1961, cuando la directora de la Escuela Primaria N.º 22 “Luis Pasteur”, Emma Diana de Vicente, solicitó
+        la creación de un preescolar, pero fue denegada debido a la falta de un edificio con las condiciones adecuadas.
+        En 1962, se obtuvieron las instalaciones necesarias y, al año siguiente, se iniciaron las gestiones en la ciudad
+        de La Plata.</br>
+        <br>Durante el año 1964, con la ayuda de los habitantes y una cooperadora, se consiguieron, a través de
+        donaciones, los muebles adecuados para el jardín. Asimismo, la institución fue inaugurada por decreto. Cabe
+        destacar que Estancias y Cabañas “Las Lilas” donó varios elementos como el mástil y la bandera. Incluso, un
+        pequeño parque recreativo con hamacas, calesitas, arenero, tobogán, entre otros juegos, fue donado por comercios
+        locales como “LaFuente y Trubbo”, “La Unión” y “Casa Pereda”. En ese momento, la institución funcionaba en un
+        local cedido por la Escuela Primaria N.º 22 “Luis Pasteur”, que anteriormente servía como casa-habitación.</br>
+        <br>Consecuentemente, el jardín comenzó a operar en 1965, bajo la dirección de la Sra. Irma Sylvia Trubbo. Hasta
+        1969, funcionó en el mismo edificio de la Escuela Primaria N.º 22. Posteriormente, durante el período de 1970 a
+        1974, se trasladó a la esquina de la Av. Montes e Independencia. Luego, entre 1975 y 1976, estuvo ubicado sobre
+        la calle Sarmiento, entre Maipú y la Av. Mitre, hasta que volvió a funcionar en la Escuela Primaria N.º 22 desde
+        1975 hasta 1985.</br>
+        <br>El 25 de mayo de 1985 se inauguró el nuevo y actual edificio, el cual fue adquirido por la Cooperadora y
+        donado al Ministerio de Gobierno de la Provincia de Buenos Aires para que comenzara la construcción.</br>
+        <br>Para 1994, ya contaba con un equipo de psicología o equipo de orientación escolar. Además, en ese entonces,
+        la matrícula era de 120 alumnos, de los cuales egresaban entre 40 y 45. Actualmente, la institución cuenta con
+        un parque más amplio con juegos recreativos, cuatro aulas equipadas con elementos y mobiliario específico para
+        los infantes, baños diferenciados para niños, niñas y docentes, una cocina, una dirección, dos depósitos, un
+        Salón de Usos Múltiples (SUM) y una sala de música.</br>
+      </p>
+    </div>
+
+    <div id="panel11" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/escuelaSecundaria1.jpg" alt="Fachada de la secundaria" class="carrusel-imagen">
+          <img src="src/img/escuelaSecundaria2.jpg" alt="Promocion en el patio" class="carrusel-imagen">
+          <img src="src/img/escuelaSecundaria3.jpg" alt="Fiesta de educación fisica" class="carrusel-imagen">
+          <img src="src/img/escuelaSecundaria4.jpg" alt="Rector Dr. Raul Cabaleiro" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Escuela Educación Secundaria N°7 "Mariano Moreno"</h2>
+      <p><br>La institución comenzó a funcionar el 12 de mayo de 1967, gracias a una cooperadora denominada "Mariano
+        Moreno". Los vecinos de Pasteur adquirieron el edificio, que contaba con tres aulas, donde se estableció la
+        institución. Las instalaciones incluían una biblioteca con alrededor de 600 libros, además de contar con
+        docentes y profesionales. En sus inicios, la institución era de gestión privada (aunque los sueldos del personal
+        provenían del Estado, la cuota y la matrícula eran privadas). En ese entonces, había 90 alumnos inscritos y ya
+        habían egresado 37.</br>
+        <br>Es importante destacar que, a partir de 1962 y 1963, el instituto ya funcionaba como una casa de estudio a
+        la que asistían algunos estudiantes, aunque estos no podían validar sus conocimientos con un título, ya que la
+        institución no era reconocida como educativa por el Estado.</br>
+        <br>El 2 de mayo de 2011, comenzó a operar la Escuela de Educación Secundaria N°7 (EES N°7), dejando atrás su
+        gestión privada y pasando a ser de gestión estatal, con una matrícula de 167 alumnos. La institución cuenta con
+        6 aulas, una cocina, 3 baños (para varones, mujeres y personas con discapacidad), un depósito, dirección,
+        secretaría, salón de actos y un laboratorio.</br>
+      </p>
+    </div>
+
+    <div id="panel12" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/trioPasteur1.jpg" alt="Trío Pasteur: Muñoz, Castro y Grande" class="carrusel-imagen">
+          <img src="src/img/trioPasteur2.jpg" alt="Muñoz e Ibañez" class="carrusel-imagen">
+          <img src="src/img/trioPasteur3.jpg" alt="Muñoz como primera voz" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Trío Pasteur (1986)</h2>
+      <p><br>El Trío Pasteur es un conjunto de música folclórica compuesto por Castro, Grande y Muñoz, tres músicos
+        autodidactas que, desde sus inicios en 1986, han dejado una huella imborrable en la música popular de la
+        región.</br>
+        <br>El trío surgió casi por casualidad durante una fiesta familiar en Pasteur, donde Norberto “Tito” Muñoz,
+        Francisco “Pichón” Grande y “Chirola” Ibáñez se encontraron compartiendo su amor por la música. Aunque
+        comenzaron como un pasatiempo, pronto se profesionalizaron a pesar de no contar con formación musical formal.
+        Inicialmente, Muñoz era la primera voz y tocaba el bombo, mientras que Ibañez y Grande se encargaban de las
+        guitarras.</br>
+        <br>Sin embargo, por cuestiones laborales y la distancia, Ibañez tuvo que abandonar el grupo, siendo reemplazado
+        por “Pati” Castro, quien asumió la primera guitarra y la tercera voz, mientras que Grande pasó a ser la segunda
+        guitarra y segunda voz.</br>
+        </br>El Trío Pasteur comenzó tocando en su localidad natal, pero no tardaron en ganar reconocimiento regional.
+        Su primera gran victoria fue en un festival en Tres Algarrobos, donde ganaron un premio que los llevó a actuar
+        en la radio y televisión locales. A partir de ahí, el grupo participó en importantes festivales, como el de San
+        Gregorio en 1988, donde presentaron la famosa "Zamba para Pasteur", obteniendo el primer lugar en las categorías
+        de canción inédita y canto. El trío siguió recorriendo localidades como General Pinto y Luján, y se presentaron
+        en numerosas radios y televisiones regionales, donde fueron bien recibidos por parte del público.</br>
+        <br>El gran salto a nivel nacional llegó en 1994, cuando se presentaron en el Festival Nacional de Música
+        Popular de Baradero, ganando el concurso y obteniendo como premio una actuación televisada y la grabación de un
+        cassette. Ese mismo año, participaron en el prestigioso Festival Nacional de Folklore de Cosquín, consolidándose
+        como un grupo destacado en la escena folclórica Argentina.</br>
+        <br>El estilo musical del Trío Pasteur estaba influenciado por artistas de renombre como César Isella, Argentino
+        Luna y Waldemar Lagos, entre otros. Grande, quien componía gran parte de las canciones del grupo, se inspira en
+        personajes de la localidad y en temáticas propias del folclore tradicional. Definía su estilo como "norteño" y
+        "carpero", una mezcla de sonidos arraigados en el folclore más puro.</br>
+        <br>El trío grabó tres cassettes y discos, con un proceso de grabación que reflejaba el trabajo en equipo:
+        mientras uno componía, el resto se encargaba de ensayar y crear las bases musicales. El primer cassette fue
+        grabado en Buenos Aires, y los siguientes en Junín.</br>
+        <br>Con el paso del tiempo, la avanzada edad de los integrantes comenzó a afectar la actividad del grupo.
+        Además, la muerte de una persona muy cercana a Castro y Grande influyó profundamente en la continuidad del trío.
+        Actualmente, el Trío Pasteur sigue activo de manera esporádica, tocando en el Festival Nacional de Folklore de
+        Pasteur y en otras oportunidades, manteniendo viva la llama de la música folclórica que tanto aman y
+        transmitiendo su legado a las futuras generaciones.</br>
+      </p>
+      <h2>Contenido relacionado</h2>
+      <div class="botonesPaneles">
+        <a href="https://youtube.com/playlist?list=PLEq0xpAgg2s3RzXHWxLWg1R2l0FokGszU&feature=shared"
+          target="_blank"><button>Escuchar canciones</button></a>
+      </div>
+    </div>
+
+    <div id="panel13" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/centroEducativo1.jpg" alt="Colocacion de la piedra fundamental" class="carrusel-imagen">
+          <img src="src/img/centroEducativo2.jpg" alt="Construccion de las instalaciones" class="carrusel-imagen">
+          <img src="src/img/centroEducativo3.jpg" alt="Patio frontal de la institucion" class="carrusel-imagen">
+          <img src="src/img/centroEducativo4.jpg" alt="Fachada de la instalacion" class="carrusel-imagen">
+          <img src="src/img/centroEducativo5.jpg" alt="Actos en la institucion" class="carrusel-imagen">
+          <img src="src/img/centroEducativo6.jpg" alt="Salida al triangulito" class="carrusel-imagen">
+          <img src="src/img/centroEducativo7.jpg" alt="Juegos en el triangulito" class="carrusel-imagen">
+          <img src="src/img/centroEducativo8.jpg" alt="Juegos en el triangulito" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Centro Educativo Complementario N°803</h2>
+      <p><br>El 4 de junio de 1972, la directora de la Escuela Primaria N°22 “Luis Pasteur” expuso la necesidad de un
+        centro educativo complementario. La comisión comenzó las gestiones en 1973, teniendo el aval de la Dirección de
+        Psicología y Servicio Escolar, pero sin obtener respuesta alguna por parte del Estado. La comisión se
+        comprometió a ceder instalaciones, equipamiento y ampliar lo existente con el fin de lograr la creación de la
+        institución. Esta era una obra de suma necesidad debido a la presencia de un gran número de niños que carecían
+        de múltiples recursos, estímulo, apoyo en el ámbito familiar y ambiental, entre otros.</br>
+        <br>En 1986, se reiniciaron las gestiones y trámites, teniendo en cuenta las carencias y aspectos que
+        propiciaron la creación del centro. En 1987, comenzó a funcionar el Centro Educativo Complementario N° 803. La
+        institución fue creciendo con el tiempo. En un primer momento, se lograron dos aulas, un cuarto para dirección,
+        un baño para el personal y un gabinete, baños para niñas y niños, se amplió la cocina y se adaptó un espacio
+        para el depósito.</br>
+        <br>El 17 de noviembre de 1992, quedó oficialmente inaugurado tras cinco años de funcionamiento adecuado y
+        comenzó a conocerse como “La Abejita”, nombre atribuido por el trabajo en grupo de las abejas en su colmena. La
+        institución funciona en doble turno (mañana y tarde) y cuenta con un salón grande utilizado como comedor. Para
+        recreación, tiene un espacio cedido frente a la institución, el cual está alambrado y cuenta con juegos de
+        parque, cancha de fútbol y de voleibol. El C.E.C. se fue convirtiendo en una institución de suma relevancia para
+        la comunidad, participando incluso en celebraciones de fiestas patrias, cumpleaños de la localidad, el Festival
+        Nacional de Folclore, festejos de carnaval con carrozas, murgas y reinas, y también generando un vínculo con la
+        comunidad del pueblo.</br>
+      </p>
+    </div>
+
+    <div id="panel14" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <div class="carrusel">
+        <div class="carrusel-imagenes">
+          <img src="src/img/festival1.jpg" alt="Predio del festival en el 2000" class="carrusel-imagen">
+          <img src="src/img/festival2.jpg" alt="Primer festival en el 1993" class="carrusel-imagen">
+          <img src="src/img/festival3.jpg" alt="Comision ganadora del certamen" class="carrusel-imagen">
+          <img src="src/img/festival4.jpg" alt="Acto de inicio del festival 1993" class="carrusel-imagen">
+          <img src="src/img/festival5.jpg" alt="Cierre del festival 1993" class="carrusel-imagen">
+          <img src="src/img/festival6.jpg" alt="Llegada de las comisiones" class="carrusel-imagen">
+          <img src="src/img/festival7.jpg" alt="Guillermo de Vega, organizador" class="carrusel-imagen">
+          <img src="src/img/festival8.jpg" alt="Entrega de premios" class="carrusel-imagen">
+          <img src="src/img/festival9.jpg" alt="Desfile de emprendados 1" class="carrusel-imagen">
+          <img src="src/img/festival10.jpg" alt="Desfile de emprendados 2" class="carrusel-imagen">
+        </div>
+        <div>
+          <img class="carrusel-bot-ant" src="src/img/flecha-ant.png" alt="Botón de anterior">
+          <img class="carrusel-bot-sig" src="src/img/flecha-sig.png" alt="Botón de siguiente">
+        </div>
+      </div>
+      <h2>Festival Nacional de Folklore de Pasteur</h2>
+      <p><br>El Festival Nacional de Folklore de Pasteur, también conocido popularmente como "Festival de la Amistad",
+        nació en 1993 con el objetivo de mantener vivo el canto, la música y la danza de la región, por una comisión
+        formada durante 1992. Este evento crea un punto de encuentro e intercambio cultural entre localidades y ciudades
+        de todo el país, fomentando sentimientos de libertad, solidaridad, respeto y convivencia.<br>
+        <br>En el festival se entregan premios a los bailarines en diversas categorías: materna-infantil, malambo
+        infantil, solista y conjunto de malambo, y pareja estilizada y tradicional. Los primeros cuatro festivales se
+        llevaron a cabo en el estadio del Club Atlético Pasteur y Ferro Carril Oeste (1993, 1994, 1995 y 1996).
+        Posteriormente, se trasladó a un predio especial con infraestructura propia, donde se celebró hasta 2023.<br>
+        <br>Cada año, durante cuatro días, el festival reúne a grandes artistas locales y nacionales. Entre los artistas
+        que han participado se encuentran Los Nocheros, El Chaqueño Palavecino, Los Chalchaleros, Tamara Castro, Luciano
+        Pereyra, Horacio Guarany, Peteco Carabajal, Argentino Luna, entre otros de renombre. Además, delegaciones
+        compiten
+        en los rubros de danza y canto.
+        <br>El festejo también incluye un desfile de emprendados, carruajes, maquinarias agrícolas y delegaciones de
+        instituciones invitadas. Asimismo, se organiza en paralelo una feria artesanal que atrae a muchos visitantes
+        para
+        apreciar este evento. <br>
+      </p>
+      <h2>Contenido relacionado</h2>
+      <div class="botonesPaneles">
+        <a href="mailto:g_devega@hotmail.com" target="_blank"><button>Contactar por correo</button></a>
+        <a href="https://www.facebook.com/profile.php?id=100064411047243" target="_blank"><button>Faceboook</button></a>
+        <a href="https://www.instagram.com/festivalpasteur/?hl=es" target="_blank"><button>Instagram</button></a>
+      </div>
+    </div>
+
+    <div id="panel16" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>¿Lincoln o Florentino Ameghino?</h2>
+      <p><br>Hace muchos años, en los primeros tiempos de la fundación de la localidad, se gestó un plan que pocos
+        conocen... un proyecto que, en su momento, fue considerado por algunos como visionario, mientras que otros lo
+        veían como una locura. Se propuso nada menos que anexar el pueblo al recién creado partido de Florentino
+        Ameghino.
+        La idea era ambiciosa: conectar las instituciones locales para facilitar trámites, operaciones mercantiles y
+        particulares, aprovechando la topografía de los campos y las crecientes actividades agropecuarias.<br>
+        <br>Sin embargo, el autor del proyecto, desconocía realmente las verdaderas necesidades y dificultades de los
+        habitantes de esta localidad. La idea de llevar a cabo este plan se desvaneció en las sombras, entre murmullos y
+        desacuerdos. Se temía que, de haberse realizado, los pobladores habrían quedado aislados, obligados a realizar
+        largos viajes hacia la nueva ciudad cabecera.<br>
+      </p>
+    </div>
+
+    <div id="panel17" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>Cementerio de Pasteur</h2>
+      <p><br>En el año 1922, Manuel Antonio García Meijón, el fundador de la localidad, donó la tierra destinada para lo
+        que sería el cementerio de Pasteur. Este lugar no solo marcó un espacio de reposo para los habitantes del
+        pueblo,
+        sino que también se convirtió en un sitio que guarda historias silenciosas.<br>
+        <br>La primera persona sepultada en este cementerio fue una pequeña niña llamada Rita Fernández, quien falleció
+        a
+        la corta edad de dos años. Años más tarde, en 1933, el cementerio recibió su bendición oficial, consolidándose
+        como un espacio sagrado y fundamental en la vida de la comunidad.<br>
+      </p>
+    </div>
+
+    <div id="panel18" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>Monte del ahorcado</h2>
+      <p><br>Hace muchos años, en tiempos de sequía y hambruna, cuando los camiones y carros aún no existían, los
+        arrieros
+        enfrentaban desafíos inmensos. Uno de ellos, un hombre conocido por su responsabilidad y dedicación, se
+        convirtió
+        en protagonista de una historia que ha perdurado en la memoria de los pobladores.<br>
+        <br>Este arriero, acompañado de dos hombres y su ganado, emprendió un largo viaje por calles y campos secos,
+        llevando consigo la esperanza de salvar a un conjunto de vacas. Sin embargo, el calor abrasador y la falta de
+        agua
+        hicieron estragos en el rebaño. Muchas vacas, debilitadas por la travesía, comenzaron a caer, y con cada
+        pérdida,
+        el ánimo del arriero se hundía más y más.<br>
+        <br>Una noche, tras perder una gran parte del ganado, decidieron acampar en un monte, buscando descanso y un
+        poco
+        de sombra. Al amanecer, el arriero les pidió a sus compañeros que se adelantaran con las vacas más fuertes,
+        mientras él se quedaba atrás con las más débiles, intentando darles un poco más de tiempo para recuperarse.<br>
+        <br>Horas pasaron, y el arriero no daba señales de alcanzarlos. Preocupado, uno de los hombres decidió regresar
+        para buscarlo. Recorrió el camino de vuelta, llamando a su amigo, pero no encontró rastro alguno. Finalmente,
+        llegó al monte donde habían acampado. Fue allí, bajo la sombra de un gran árbol, donde descubrió una escena
+        trágica: su amigo, el arriero responsable y dedicado, colgaba de una soga, atada al árbol.<br>
+        <br>La noticia se esparció rápidamente. Algunos dijeron que el arriero, desesperado por la pérdida de más de la
+        mitad de su ganado y sintiéndose incapaz de cumplir con su tarea, había decidido poner fin a su vida. Otros, sin
+        embargo, comenzaron a contar una versión más inquietante: aquella del monte del ahorcado. <br>
+        <br>Relato por José Luis Acuña<br>
+      </p>
+    </div>
+
+    <div id="panel19" class="panelDesplegable">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>CE-RE-PAST</h2>
+      <p><br>El Centro de Ex-Residentes de Pasteur se fundó el 15 de noviembre de 1981 con el objetivo de ser un punto
+        de
+        encuentro para los pasteurenses, tanto dentro como fuera de la localidad. Los fundadores fueron Gabriel López,
+        Jorge del Río y Hugo Moralejo. El centro cuenta con una sede en Parque Leloir, Ituzaingó.<br>
+        <br>Entre sus objetivos principales se destacan el fomento de las relaciones sociales, culturales, deportivas y
+        de
+        asistencia para los habitantes de Pasteur que se han radicado en Buenos Aires y la región. También busca ofrecer
+        un espacio de reunión y referencia, promover la cultura y las interacciones entre sus miembros, así como
+        establecer vínculos entre la localidad de Pasteur y el CE-RE-PAST para el beneficio de ambas partes. Además, el
+        centro participa activamente en eventos relacionados con Pasteur.<br>
+      </p>
+    </div>
+
+    <!-- ------------------------ Footer ------------------------ -->
+    <div id="acercaDe">
+      <img class="cerrar" src="src/img/cierre.png" alt="Cerrar">
+      <h2>Acerca de</h2>
+      <p><br><b>Crónicas de Pasteur</b> es un proyecto desarrollado como parte de mi tesis para la Cátedra de Diseño
+        Multimedial V de la carrera de Diseño Multimedial en la Facultad de Artes, Universidad Nacional de La Plata,
+        Buenos Aires, Argentina.<br>
+        <br>Este trabajo tiene como objetivo la creación de un sitio web interactivo que permita el acceso a
+        información histórica sobre la localidad de Pasteur, ubicada al noroeste de la Provincia de Buenos Aires. A
+        través de esta plataforma, se busca crear una musealización virtual, centrada en la exposición de datos
+        históricos, utilizando diversas estrategias multimedia y herramientas digitales como imágenes, videos, sonidos
+        y textos. Este proyecto nace de la necesidad de dar visibilidad a la historia de localidades como Pasteur, que
+        carecen de suficiente documentación, y demostrar cómo los medios digitales pueden ser una herramienta eficaz
+        para comunicar y preservar su patrimonio.<br>
+        <br>Quiero expresar mi más sincero agradecimiento a los habitantes y ex-habitantes de Pasteur, quienes no solo
+        compartieron sus valiosos testimonios durante las entrevistas, sino que también facilitaron una rica fuente de
+        archivos y datos. Agradezco también el apoyo de las instituciones nacionales y municipales del partido de
+        Lincoln.<br>
+        <br>De manera especial, extiendo mi gratitud a la delegación de Pasteur por su inestimable
+        colaboración y por proporcionar material fotográfico del Museo Municipal “Manuel A. García”. Del mismo modo,
+        agradezco a Silvia Aguirre, Hugo Moralejo, Gloria Cabaleiro y Guillermo De Vega, por su contribución con
+        materiales fotográficos y digitales. También deseo agradecer a las directoras Vanesa Grande, Silvia Agüero,
+        Mayra López y
+        Marisa Calles por su disposición de las instituciones y apoyo continuo. Finalmente, expreso mi reconocimiento
+        al Archivo Histórico Municipal de Lincoln "Prof. Andrés R. Allende" por su colaboración en proporcionar
+        valiosa información y documentación.<br>
+        <br>Este sitio web fue desarrollado utilizando Blender, HTML, CSS, JavaScript y Three.js.<br>
+      </p>
+    </div>
+  </div>
+  <!-- ------------------------ Script ------------------------ -->
+  <script type="module" src="main.js"></script>
+  <script type="module" src="js/clienteWeb.js"></script>
+</body>
+
+</html>
