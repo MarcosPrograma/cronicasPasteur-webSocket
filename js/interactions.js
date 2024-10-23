@@ -197,8 +197,8 @@ export function marcadores(scene, camera) {
 
             //*intento* suavizado para que no salte con el zoom *tos* no funciona del todo *tos*
             const posicionPrevia = marcadoresPosiciones[marcador.id];
-            posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 0.4);
-            posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 0.4);
+            posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 1);
+            posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 1);
 
             marcadorElement.style.transform = `translate(-50%, -50%) translate(${posicionPrevia.x}px, ${posicionPrevia.y}px)`;
         });
