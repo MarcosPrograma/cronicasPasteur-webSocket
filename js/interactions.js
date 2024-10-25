@@ -128,31 +128,81 @@ export function interacciones(camera) {
 }
 
 //----------- Marcadores ------------
+
+//Setear una posicion de camara para el zoomIn
+const posicionesCamara = {
+    'panel1': {x: 13, y: 12, z: 12},
+    'panel2': { x: 9, y: 12, z: 45 },
+    'panel3': { x: -44, y: 12, z: -2 },
+    'panel4': {x: -15, y: 12, z: 32},
+    'panel5': {x: 37, y: 12, z: 39},
+    'panel6': {x: 20, y: 12, z: -8},
+    'panel7': {x: -36, y: 11, z: -40},
+    'panel8': {x: 53, y: 12, z: -3},
+    'panel9': {x: -32, y: 12, z: -48},
+    'panel10': {x: 29, y: 10, z: 4},
+    'panel11': {x: -16, y: 12, z: -37},
+    'panel12': {x: -4, y: 12, z: -40},
+    'panel13': {x: 30, y: 12, z: 14},
+    'panel14': {x: -2, y: 12, z: -57},
+};
+
 export function marcadores(scene, camera) {
     const contenedor = document.getElementById('marcadores-contenedor');
     const divInvisible = document.getElementById('divInvisible'); // Fondo negro
 
     const marcadores = [
-        { id: 'marker1', panelId: 'panel1', position: { x: 1.5, y: 5, z: 1.5 }, img: './src/img/locationHover.png'},
+        { id: 'marker1', panelId: 'panel1', position: { x: 0.5, y: 5, z: 0 }, img: './src/img/locationHover.png'},
         { id: 'marker2', panelId: 'panel2', position: { x: 6, y: 6, z: 29 }, img: './src/img/locationHover.png'},
         { id: 'marker3', panelId: 'panel3', position: { x: -30, y: 6, z: -1 }, img: './src/img/locationHover.png'},
-        { id: 'marker4', panelId: 'panel4', position: { x: -6.2, y: 6, z: 16 }, img: './src/img/locationHover.png'},
+        { id: 'marker4', panelId: 'panel4', position: { x: -7, y: 5, z: 15 }, img: './src/img/locationHover.png'},
         { id: 'marker5', panelId: 'panel5', position: { x: 27, y: 6, z: 27 }, img: './src/img/locationHover.png'},
-        { id: 'marker6', panelId: 'panel6', position: { x: 6, y: 5, z: 0 }, img: './src/img/locationHover.png'},
-        { id: 'marker7', panelId: 'panel7', position: { x: -24, y: 4, z: -27 }, img: './src/img/locationHover.png'},
-        { id: 'marker8', panelId: 'panel8', position: { x: 32, y: 5, z: 0 }, img: './src/img/locationHover.png'},
-        { id: 'marker9', panelId: 'panel9', position: { x: -22, y: 6, z: -31 }, img: './src/img/locationHover.png'},
-        { id: 'marker10', panelId: 'panel10', position: { x: 14, y: 4, z: 4 }, img: './src/img/locationHover.png'},
-        { id: 'marker11', panelId: 'panel11', position: { x: -5.6, y: 6, z: -16.5 }, img: './src/img/locationHover.png'},
-        { id: 'marker12', panelId: 'panel12', position: { x: -6, y: 5, z: -26.5 }, img: './src/img/locationHover.png'},
-        { id: 'marker13', panelId: 'panel13', position: { x: 14, y: 4, z: 8 }, img: './src/img/locationHover.png'},
-        { id: 'marker14', panelId: 'panel14', position: { x: -2, y: 4, z: -33 }, img: './src/img/locationHover.png'}
+        { id: 'marker6', panelId: 'panel6', position: { x: 6, y: 5, z: -2 }, img: './src/img/locationHover.png'},
+        { id: 'marker7', panelId: 'panel7', position: { x: -26, y: 5, z: -29 }, img: './src/img/locationHover.png'},
+        { id: 'marker8', panelId: 'panel8', position: { x: 31, y: 5, z: -2 }, img: './src/img/locationHover.png'},
+        { id: 'marker9', panelId: 'panel9', position: { x: -22, y: 6, z: -34 }, img: './src/img/locationHover.png'},
+        { id: 'marker10', panelId: 'panel10', position: { x: 15, y: 5, z: 2.5 }, img: './src/img/locationHover.png'},
+        { id: 'marker11', panelId: 'panel11', position: { x: -7, y: 5, z: -18 }, img: './src/img/locationHover.png'},
+        { id: 'marker12', panelId: 'panel12', position: { x: -3, y: 5, z: -28 }, img: './src/img/locationHover.png'},
+        { id: 'marker13', panelId: 'panel13', position: { x: 14, y: 5, z: 6.5 }, img: './src/img/locationHover.png'},
+        { id: 'marker14', panelId: 'panel14', position: { x: 0, y: 5, z: -35 }, img: './src/img/locationHover.png'}
     ];
 
     const vector = new THREE.Vector3();
     const marcadoresPosiciones = {};
 
+    //animacion de la camara 
+    function animacionCamara(camera, targetPosition, lookAtPosition, duration = 1000){
+        const startPosition = new THREE.Vector3().copy(camera.position); //posicion actual de la camara
+        const startAtLook = new THREE.Vector3(); //posicion actual donde mira 
+        camera.getWorldDirection(startAtLook);
+
+        const endPosition = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+        const endLookAt = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+
+        const startTime = performance.now();
+
+        function animate(time){
+            const elapsed = time - startTime;
+            const t = Math.min(elapsed / duration, 1);
+            const easedT = t* (2 - t); //suavizado para la interpolacion
+
+            //interpolacion
+            camera.position.lerpVectors(startPosition, endPosition, easedT);
+            const currentLookAt = new THREE.Vector3().lerpVectors(startAtLook, endLookAt, easedT);
+            camera.lookAt(currentLookAt);
+
+            if(t < 1){
+                requestAnimationFrame(animate);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
     function actualizarMarcadorPosicion() {
+        //requestAnimationFrame(actualizarMarcadorPosicion);
+
         marcadores.forEach(marcador => {
             let marcadorElement = document.getElementById(marcador.id);
             if (!marcadorElement) {
@@ -180,10 +230,15 @@ export function marcadores(scene, camera) {
                     }
 
                     const targetPosition = new THREE.Vector3(marcador.position.x, marcador.position.y, marcador.position.z);
-                    zoomInObjeto(camera, targetPosition, 1000);
+                    const posicionCamara = posicionesCamara[marcador.panelId];
+
+                    if(posicionCamara){
+                        animacionCamara(camera, posicionCamara, targetPosition, 1500);
+                    }
+                    //zoomInObjeto(camera, targetPosition, 1000);
                 });
             }
-
+            
             vector.set(marcador.position.x, marcador.position.y, marcador.position.z);
             vector.project(camera);
 
@@ -197,12 +252,14 @@ export function marcadores(scene, camera) {
 
             //*intento* suavizado para que no salte con el zoom *tos* no funciona del todo *tos*
             const posicionPrevia = marcadoresPosiciones[marcador.id];
-            posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 1);
-            posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 1);
+            posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 0.4);
+            posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 0.4);
 
             marcadorElement.style.transform = `translate(-50%, -50%) translate(${posicionPrevia.x}px, ${posicionPrevia.y}px)`;
         });
     }
+
+    //actualizarMarcadorPosicion();
 
     divInvisible.addEventListener('click', () => {
         document.querySelectorAll('.panelDesplegable').forEach(panel => {

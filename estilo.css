@@ -228,6 +228,7 @@ header {
   width: 20%;
   margin-left: 4rem;
   transition: all 0.5s ease; 
+  cursor: pointer;
 }
 
 header:hover .header-title::after {
@@ -242,6 +243,7 @@ header:hover .header-title {
 }
 
 header:hover img {
+  cursor: pointer;
   content: url('src/img/logo2.png');
 }
 
@@ -354,6 +356,7 @@ header:hover img {
   pointer-events: auto;
   opacity: 0.7;
   z-index: 3;
+  transition: opacity 0.5s ease;
 }
 
 .numero-marcador {
@@ -375,6 +378,10 @@ header:hover img {
 
 .marcador:hover{
   opacity: 1;
+}
+
+.oculto {
+  display: none;
 }
 
 /* ------------------------ Pestanas desplegables ------------------------  */

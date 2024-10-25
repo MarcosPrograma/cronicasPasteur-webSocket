@@ -2,12 +2,69 @@ import * as THREE from 'three';
 import { zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
 import { OrbitControls } from "/js/controls/orbitControls.js";
 
+//---------------------------- Raycaster ----------------------------
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2(); 
 
-//---------------------------- Raycaster ----------------------------
+function toggleMarcadores(mostrar) {
+    const marcadores = document.querySelectorAll('.marcador');
+    marcadores.forEach(marcador => {
+        if (mostrar) {
+            marcador.classList.remove('oculto');
+        } else {
+            marcador.classList.add('oculto');
+        }
+    });
+}
+
+//Setear una posicion de camara para el zoomIn
+const posicionesCamara = {
+    'panel1': {x: 13, y: 12, z: 12},
+    'panel2': { x: 9, y: 12, z: 45 },
+    'panel3': { x: -44, y: 12, z: -2 },
+    'panel4': {x: -15, y: 12, z: 32},
+    'panel5': {x: 37, y: 12, z: 39},
+    'panel6': {x: 20, y: 12, z: -8},
+    'panel7': {x: -36, y: 11, z: -40},
+    'panel8': {x: 53, y: 12, z: -3},
+    'panel9': {x: -32, y: 12, z: -48},
+    'panel10': {x: 29, y: 10, z: 4},
+    'panel11': {x: -16, y: 12, z: -37},
+    'panel12': {x: -4, y: 12, z: -40},
+    'panel13': {x: 30, y: 12, z: 14},
+    'panel14': {x: -2, y: 12, z: -57},
+};
+
 export function setearRaycaster(camera, scene) {
     const divInvisible = document.getElementById('divInvisible'); // Fondo negro
+
+    function animacionCamara(camera, targetPosition, lookAtPosition, duration = 1000){
+        const startPosition = new THREE.Vector3().copy(camera.position); //posicion actual de la camara
+        const startAtLook = new THREE.Vector3(); //posicion actual donde mira 
+        camera.getWorldDirection(startAtLook);
+
+        const endPosition = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+        const endLookAt = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
+
+        const startTime = performance.now();
+
+        function animate(time){
+            const elapsed = time - startTime;
+            const t = Math.min(elapsed / duration, 1);
+            const easedT = t* (2 - t); //suavizado para la interpolacion
+
+            //interpolacion
+            camera.position.lerpVectors(startPosition, endPosition, easedT);
+            const currentLookAt = new THREE.Vector3().lerpVectors(startAtLook, endLookAt, easedT);
+            camera.lookAt(currentLookAt);
+
+            if(t < 1){
+                requestAnimationFrame(animate);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
 
     //Interaccion por clics
     function onMouseClick(event) {
@@ -24,11 +81,19 @@ export function setearRaycaster(camera, scene) {
             const panelId = object.userData.id;
             const panel = document.getElementById(panelId);
 
-            //Solo lo hace con los objetos seleccionados
-            if (object.userData.id){
+            //si el objeto tiene un id valido
+            if (panelId && posicionesCamara[panelId]){
+                const posicionCamara = posicionesCamara[panelId];
                 const targetPosition = new THREE.Vector3();
                 object.getWorldPosition(targetPosition);
-                zoomInObjeto(camera, targetPosition);
+
+                toggleMarcadores(false);
+
+                animacionCamara(camera, posicionCamara, targetPosition, 1500);
+
+                setTimeout(() => {
+                  zoomInObjeto(camera, targetPosition);
+                }, 1500);
             }
 
             //si hay un panel abierto, se debe cerrar el otro 
@@ -47,6 +112,7 @@ export function setearRaycaster(camera, scene) {
         });
         divInvisible.classList.remove('mostrar');
         zoomOutObjeto(camera);
+        toggleMarcadores(true);
     });
 
     window.addEventListener('click', onMouseClick);
