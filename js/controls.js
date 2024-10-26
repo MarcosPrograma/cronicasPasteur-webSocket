@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
+import { animacionCamara, zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
 import { OrbitControls } from "/js/controls/orbitControls.js";
 
 //---------------------------- Raycaster ----------------------------
@@ -37,34 +37,6 @@ const posicionesCamara = {
 
 export function setearRaycaster(camera, scene) {
     const divInvisible = document.getElementById('divInvisible'); // Fondo negro
-
-    function animacionCamara(camera, targetPosition, lookAtPosition, duration = 1000){
-        const startPosition = new THREE.Vector3().copy(camera.position); //posicion actual de la camara
-        const startAtLook = new THREE.Vector3(); //posicion actual donde mira 
-        camera.getWorldDirection(startAtLook);
-
-        const endPosition = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
-        const endLookAt = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
-
-        const startTime = performance.now();
-
-        function animate(time){
-            const elapsed = time - startTime;
-            const t = Math.min(elapsed / duration, 1);
-            const easedT = t* (2 - t); //suavizado para la interpolacion
-
-            //interpolacion
-            camera.position.lerpVectors(startPosition, endPosition, easedT);
-            const currentLookAt = new THREE.Vector3().lerpVectors(startAtLook, endLookAt, easedT);
-            camera.lookAt(currentLookAt);
-
-            if(t < 1){
-                requestAnimationFrame(animate);
-            }
-        }
-
-        requestAnimationFrame(animate);
-    }
 
     //Interaccion por clics
     function onMouseClick(event) {

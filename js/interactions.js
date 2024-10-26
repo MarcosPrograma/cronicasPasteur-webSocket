@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
+import { animacionCamara, zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
 
 //----------- Paneles ------------
 export function interacciones(camera) {
@@ -128,9 +128,7 @@ export function interacciones(camera) {
 }
 
 //----------- Marcadores ------------
-
-//Setear una posicion de camara para el zoomIn
-const posicionesCamara = {
+const posicionesCamara = { //setear una posicion de camara para el zoomIn
     'panel1': {x: 13, y: 12, z: 12},
     'panel2': { x: 9, y: 12, z: 45 },
     'panel3': { x: -44, y: 12, z: -2 },
@@ -171,37 +169,14 @@ export function marcadores(scene, camera) {
     const vector = new THREE.Vector3();
     const marcadoresPosiciones = {};
 
-    //animacion de la camara 
-    function animacionCamara(camera, targetPosition, lookAtPosition, duration = 1000){
-        const startPosition = new THREE.Vector3().copy(camera.position); //posicion actual de la camara
-        const startAtLook = new THREE.Vector3(); //posicion actual donde mira 
-        camera.getWorldDirection(startAtLook);
-
-        const endPosition = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
-        const endLookAt = new THREE.Vector3(targetPosition.x, targetPosition.y, targetPosition.z);
-
-        const startTime = performance.now();
-
-        function animate(time){
-            const elapsed = time - startTime;
-            const t = Math.min(elapsed / duration, 1);
-            const easedT = t* (2 - t); //suavizado para la interpolacion
-
-            //interpolacion
-            camera.position.lerpVectors(startPosition, endPosition, easedT);
-            const currentLookAt = new THREE.Vector3().lerpVectors(startAtLook, endLookAt, easedT);
-            camera.lookAt(currentLookAt);
-
-            if(t < 1){
-                requestAnimationFrame(animate);
-            }
-        }
-
-        requestAnimationFrame(animate);
-    }
+    //let frameCounter = 0;
 
     function actualizarMarcadorPosicion() {
+
         //requestAnimationFrame(actualizarMarcadorPosicion);
+
+        //frameCounter++;
+        //if(frameCounter % 120 !== 0) return; 
 
         marcadores.forEach(marcador => {
             let marcadorElement = document.getElementById(marcador.id);
@@ -252,15 +227,15 @@ export function marcadores(scene, camera) {
 
             //*intento* suavizado para que no salte con el zoom *tos* no funciona del todo *tos*
             const posicionPrevia = marcadoresPosiciones[marcador.id];
-            posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 0.4);
-            posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 0.4);
+            posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 0.6);
+            posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 0.6);
 
             marcadorElement.style.transform = `translate(-50%, -50%) translate(${posicionPrevia.x}px, ${posicionPrevia.y}px)`;
         });
     }
 
     //actualizarMarcadorPosicion();
-
+    
     divInvisible.addEventListener('click', () => {
         document.querySelectorAll('.panelDesplegable').forEach(panel => {
             panel.classList.remove('mostrar');
@@ -271,7 +246,7 @@ export function marcadores(scene, camera) {
     return actualizarMarcadorPosicion;
 }
 
-//----------- Carrusel ------------
+//----------------------- Carrusel -----------------------
 export function iniciarCarrusel() {
     document.querySelectorAll('.carrusel').forEach(carrusel => {
         const imagenes = carrusel.querySelector('.carrusel-imagenes');
@@ -339,8 +314,8 @@ export function stepper() {
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 500);
-
-        //document.getElementById('stepper-overlay').style.display = 'none';   
+        
+        //document.getElementById('stepper-overlay').style.display = 'none';
     }
 
     //------------------------------------------------------------------

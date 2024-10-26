@@ -58,6 +58,12 @@ p {
   color: #1E1E1E;
 }
 
+/* ------------ Experiencia tangible ------------*/
+
+.ocultar-UI{
+  display: none;
+}
+
 /* ------------------------ Pantalla de carga ------------------------ */
 #pantalla-carga {
   background: #BFF6C3;
@@ -356,7 +362,7 @@ header:hover img {
   pointer-events: auto;
   opacity: 0.7;
   z-index: 3;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.1s ease;
 }
 
 .numero-marcador {
@@ -381,7 +387,7 @@ header:hover img {
 }
 
 .oculto {
-  display: none;
+  opacity: 0;
 }
 
 /* ------------------------ Pestanas desplegables ------------------------  */

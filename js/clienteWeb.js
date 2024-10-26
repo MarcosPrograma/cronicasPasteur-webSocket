@@ -1,4 +1,4 @@
-let websocket; 
+let websocket;
 let scrollAutomaticoActivo = {};
 
 function wsConnect() {
@@ -7,44 +7,59 @@ function wsConnect() {
     // Asignación de callbacks
     websocket.onopen = function (evt) {
         console.log('Conectado con el WebSocket Server');
+
+        //ocultar UI cuando el ESP32 este activo
+        document.querySelectorAll('.carrusel-bot-ant, .carrusel-bot-sig, .nav-list').forEach(ui => {
+            ui.classList.add('ocultar-UI');
+        });
     };
+
     websocket.onmessage = function (evt) {
         console.log('Servidor: UID Recibido', evt.data);
         const uid = evt.data;
         abrirPanelPorUID(uid);
     };
+
     websocket.onclose = function (evt) {
         console.log('reconectando WebSocket');
+
+        //volver a mostrar UI cuando el ESP32 este desactivo
+        document.querySelectorAll('.carrusel-bot-ant, .carrusel-bot-sig, .nav-list').forEach(ui => {
+            ui.classList.renove('ocultar-UI');
+        });
+
         setTimeout(function () {
             wsConnect(); // volver a conectar
         }, 2000);
+
     };
+
     websocket.onerror = function (evt) {
         console.log("Error: " + evt.data);
     };
 }
 
-function scrollAutomatico(panelId){
+function scrollAutomatico(panelId) {
     const panel = document.getElementById(panelId);
 
-    if(panel){
+    if (panel) {
         const scrollTopMax = panel.scrollHeight - panel.clientHeight;
         //let scrollTop = panel.scrollTop;
         const duracion = 10000;
         let startTime = null;
 
-        scrollAutomaticoActivo[panelId] = true; 
+        scrollAutomaticoActivo[panelId] = true;
 
-        function animacionScroll(tiempo){
-            if(!scrollAutomaticoActivo[panelId]) return;
+        function animacionScroll(tiempo) {
+            if (!scrollAutomaticoActivo[panelId]) return;
 
-            if(startTime === null) startTime = tiempo;
-            const timeElapsed = tiempo - startTime; 
+            if (startTime === null) startTime = tiempo;
+            const timeElapsed = tiempo - startTime;
             const progress = Math.min(timeElapsed / duracion, 1);
             //panel.scrollTop = scrollTop + progress * (scrollTopMax - scrollTop);
             panel.scrollTop = progress * scrollTopMax;
 
-            if(progress < 1){
+            if (progress < 1) {
                 requestAnimationFrame(animacionScroll);
             }
         }
@@ -52,21 +67,21 @@ function scrollAutomatico(panelId){
     }
 }
 
-function resetearScroll(panelId){
+function resetearScroll(panelId) {
     const panel = document.getElementById(panelId);
-    if(panel){
+    if (panel) {
         panel.scrollTop = 0;
-        scrollAutomaticoActivo[panelId] = false; 
+        scrollAutomaticoActivo[panelId] = false;
     }
 }
 
-function abrirPanelPorUID(uid){
+function abrirPanelPorUID(uid) {
     if (uid === 'noHayTarjeta') {
         ['panel1', 'panel2', 'panel3', 'panel4', 'panel5', 'panel6', 'panel7', 'panel8', 'panel9', 'panel10',
-         'panel11', 'panel12', 'panel13', 'panel14'].forEach(panelId => {
-            document.getElementById(panelId).classList.remove('mostrar');
-            resetearScroll(panelId);
-         });
+            'panel11', 'panel12', 'panel13', 'panel14'].forEach(panelId => {
+                document.getElementById(panelId).classList.remove('mostrar');
+                resetearScroll(panelId);
+            });
     } else {
         switch (uid) {
             case '62269551':

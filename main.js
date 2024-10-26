@@ -18,7 +18,7 @@ const controls = setearControles(camera, renderer);
 cargarMundo(scene);
 
 //Cargar objetos
-cargarObjeto('/models/monumento.gltf', 'panel1', scene, { x: 0.5, y: 1.8, z: 0});
+cargarObjeto('/models/monumento.gltf', 'panel1', scene, { x: 0.5, y: 1.8, z: 0 });
 cargarObjeto('/models/ruinasPiamontesa.gltf', 'panel2', scene, { x: 6, y: 1.6, z: 29 });
 cargarObjeto('/models/trainEstacion.gltf', 'panel3', scene, { x: -32, y: 1.6, z: -1 });
 cargarObjeto('/models/escuelaPrimaria.gltf', 'panel4', scene, { x: -7, y: 1.6, z: 15 });
@@ -54,6 +54,27 @@ stepper();
 //Sincronizar marcadores
 const actualizarMarcador = marcadores(scene, camera);
 
+/* //Mini-paneo al iniciar 
+const puntoA = new THREE.Vector3(60, 30, 0);
+const puntoB = new THREE.Vector3(45, 15, 30);
+let progreso = 0;
+let enPaneo = false;
+
+function paneoCamara() {
+    if (enPaneo) {
+        progreso += 0.02; //velocidad de interpolacion
+        if (progreso < 1) {
+            camera.position.lerpVectors(puntoA, puntoB, progreso);
+            camera.lookAt(0, 0, 0);
+            requestAnimationFrame(paneoCamara);
+        } else {
+            camera.position.copy(puntoB);
+            enPaneo = false;
+        }
+    }
+}
+*/
+
 //Resize
 window.addEventListener('resize', () => {
     const width = window.innerWidth;
@@ -71,8 +92,9 @@ function animate() {
 
     controls.update();
     actualizarMarcador();
+    //paneoCamara();
 
-    console.log(`Posición de la cámara: X=${camera.position.x}, Y=${camera.position.y}, Z=${camera.position.z}`);
+    //console.log(`Posición de la cámara: X=${camera.position.x}, Y=${camera.position.y}, Z=${camera.position.z}`);
 
     renderer.render(scene, camera);
 }
