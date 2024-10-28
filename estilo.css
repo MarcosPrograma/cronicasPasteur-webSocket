@@ -7,6 +7,12 @@
   user-select: none; 
 }
 
+/* ------------ Experiencia tangible ------------*/
+
+.ocultar-UI{
+  display: none;
+}
+
 /* ------------------------ TODO ------------------------ */
 .escena-canvas {
   position: absolute;
@@ -45,7 +51,7 @@ h2 {
 a {
   text-decoration: none;
   font-style: normal;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   color: #1E1E1E;
 }
@@ -53,15 +59,9 @@ a {
 p {
   text-decoration: none;
   font-style: normal;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: normal;
   color: #1E1E1E;
-}
-
-/* ------------ Experiencia tangible ------------*/
-
-.ocultar-UI{
-  display: none;
 }
 
 /* ------------------------ Pantalla de carga ------------------------ */
@@ -362,7 +362,7 @@ header:hover img {
   pointer-events: auto;
   opacity: 0.7;
   z-index: 3;
-  transition: opacity 0.1s ease;
+  transition: opacity 0.03s ease;
 }
 
 .numero-marcador {
@@ -709,7 +709,7 @@ header:hover img {
     padding-left: 1.5rem;
     padding-top: 3rem;
     padding-bottom: 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .panel_menu_opciones {
@@ -730,6 +730,29 @@ header:hover img {
 
   .cerrar {
     padding: 1.5rem;
+  }
+
+  /* ---- AcercaDe ---- */
+  #acercaDe{
+    width: 100%;
+    right: -100%;
+  }
+
+  #acercaDe h2 {
+    padding-left: 1rem;
+    padding-top: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  #acercaDe p {
+    margin-left: 1rem;
+    margin-right: 1rem; 
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  header:hover .header-title::after {
+    font-size: 12px;
   }
 
   /*---- Paneles desplegables ---- */
@@ -905,7 +928,7 @@ header:hover img {
     padding-left: 1.2rem;
     padding-top: 2rem;
     padding-bottom: 1rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .panel_menu_opciones {
@@ -930,10 +953,33 @@ header:hover img {
     height: auto;
   }
 
+  /* ---- AcercaDe ---- */
+  #acercaDe{
+    width: 40%;
+    right: -40%;
+  }
+
+  #acercaDe h2 {
+    padding-left: 1.2rem;
+    padding-top: 2rem;
+    font-size: 1rem;
+  }
+
+  #acercaDe p {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+  }
+
+  header:hover .header-title::after {
+    font-size: 12px;
+  }
+
   /*---- Paneles desplegables ---- */
   .panelDesplegable {
-    width: 40%;
-    left: -40%;
+    width: 45%;
+    left: -45%;
     padding-bottom: 4rem;
   }
 
@@ -980,28 +1026,5 @@ header:hover img {
   .carrusel-bot-sig {
     width: 1.5rem;
     height: 1.5rem;
-  }
-}
-
-/* ------ Media Query para pantallas grandes */
-@media (min-width: 1920px) {
-  body {
-    font-size: 18px;
-  }
-
-  .nav-list {
-    gap: 8rem; 
-  }  
-
-  .stepper {
-    max-width: 1000px; 
-  }
-
-  .stepper img {
-    width: 60%;
-  }
-
-  #pantalla-carga img {
-    width: 15%;
   }
 }

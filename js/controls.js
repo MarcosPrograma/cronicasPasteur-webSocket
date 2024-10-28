@@ -33,6 +33,11 @@ const posicionesCamara = {
     'panel12': {x: -4, y: 12, z: -40},
     'panel13': {x: 30, y: 12, z: 14},
     'panel14': {x: -2, y: 12, z: -57},
+
+    'panel16': {x: -43, y: 10, z: 20},
+    'panel17': {x: 45, y: 10, z: -25},
+    'panel18': {x: -36, y: 10, z: 39},
+    'panel19': {x: 38, y: 10, z: -38},
 };
 
 export function setearRaycaster(camera, scene) {
