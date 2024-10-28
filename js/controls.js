@@ -107,8 +107,9 @@ export function setearControles(camera, renderer) {
         controls.minDistance = 22;
         controls.maxDistance = 70;
 
+        //limites de la orbita en vertical
         controls.minPolarAngle = 0;
-        controls.maxPolarAngle = Math.PI * 0.6; //evitar rotaciones fuertes
+        controls.maxPolarAngle = Math.PI * 0.45; 
 
         //amortiguacion
         controls.enableDamping = true;
@@ -133,8 +134,9 @@ export function setearControles(camera, renderer) {
         controls.minDistance = 22;
         controls.maxDistance = 70;
         
+        //limites de la orbita en vertical
         controls.minPolarAngle = 0;
-        controls.maxPolarAngle = Math.PI * 0.45; //evitar rotaciones fuertes
+        controls.maxPolarAngle = Math.PI * 0.45; 
         
         //amortiguacion
         controls.enableDamping = true;

@@ -94,7 +94,7 @@ function animate() {
     actualizarMarcador();
     //paneoCamara();
 
-    console.log(`Posición de la cámara: X=${camera.position.x}, Y=${camera.position.y}, Z=${camera.position.z}`);
+    //console.log(`Posición de la cámara: X=${camera.position.x}, Y=${camera.position.y}, Z=${camera.position.z}`);
 
     renderer.render(scene, camera);
 }

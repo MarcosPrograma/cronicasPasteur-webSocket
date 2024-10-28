@@ -9,7 +9,7 @@ function wsConnect() {
         console.log('Conectado con el WebSocket Server');
 
         //ocultar UI cuando el ESP32 este activo
-        document.querySelectorAll('.carrusel-bot-ant, .carrusel-bot-sig, .nav-list').forEach(ui => {
+        document.querySelectorAll('.carrusel-bot-ant, .carrusel-bot-sig, .nav').forEach(ui => {
             ui.classList.add('ocultar-UI');
         });
     };
