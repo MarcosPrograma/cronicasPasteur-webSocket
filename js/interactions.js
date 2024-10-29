@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { animacionCamara, zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
+import locationHover from '../src/img/locationHover.png'; 
 
 //----------- Paneles ------------
 export function interacciones(camera) {
@@ -150,20 +151,20 @@ export function marcadores(scene, camera) {
     const divInvisible = document.getElementById('divInvisible'); // Fondo negro
 
     const marcadores = [
-        { id: 'marker1', panelId: 'panel1', position: { x: 0.5, y: 5, z: 0 }, img: '../src/img/locationHover.png'},
-        { id: 'marker2', panelId: 'panel2', position: { x: 6, y: 6, z: 29 }, img: '../src/img/locationHover.png'},
-        { id: 'marker3', panelId: 'panel3', position: { x: -30, y: 6, z: -1 }, img: '../src/img/locationHover.png'},
-        { id: 'marker4', panelId: 'panel4', position: { x: -7, y: 5, z: 15 }, img: '../src/img/locationHover.png'},
-        { id: 'marker5', panelId: 'panel5', position: { x: 27, y: 6, z: 27 }, img: '../src/img/locationHover.png'},
-        { id: 'marker6', panelId: 'panel6', position: { x: 6, y: 5, z: -2 }, img: '../src/img/locationHover.png'},
-        { id: 'marker7', panelId: 'panel7', position: { x: -26, y: 5, z: -29 }, img: '../src/img/locationHover.png'},
-        { id: 'marker8', panelId: 'panel8', position: { x: 31, y: 5, z: -2 }, img: '../src/img/locationHover.png'},
-        { id: 'marker9', panelId: 'panel9', position: { x: -22, y: 6, z: -34 }, img: '../src/img/locationHover.png'},
-        { id: 'marker10', panelId: 'panel10', position: { x: 15, y: 5, z: 2.5 }, img: '../src/img/locationHover.png'},
-        { id: 'marker11', panelId: 'panel11', position: { x: -7, y: 5, z: -18 }, img: '../src/img/locationHover.png'},
-        { id: 'marker12', panelId: 'panel12', position: { x: -3, y: 5, z: -28 }, img: '../src/img/locationHover.png'},
-        { id: 'marker13', panelId: 'panel13', position: { x: 14, y: 5, z: 6.5 }, img: '../src/img/locationHover.png'},
-        { id: 'marker14', panelId: 'panel14', position: { x: 0, y: 5, z: -35 }, img: '../src/img/locationHover.png'}
+        { id: 'marker1', panelId: 'panel1', position: { x: 0.5, y: 5, z: 0 }, img: locationHover},
+        { id: 'marker2', panelId: 'panel2', position: { x: 6, y: 6, z: 29 }, img: locationHover},
+        { id: 'marker3', panelId: 'panel3', position: { x: -30, y: 6, z: -1 }, img: locationHover},
+        { id: 'marker4', panelId: 'panel4', position: { x: -7, y: 5, z: 15 }, img: locationHover},
+        { id: 'marker5', panelId: 'panel5', position: { x: 27, y: 6, z: 27 }, img: locationHover},
+        { id: 'marker6', panelId: 'panel6', position: { x: 6, y: 5, z: -2 }, img: locationHover},
+        { id: 'marker7', panelId: 'panel7', position: { x: -26, y: 5, z: -29 }, img: locationHover},
+        { id: 'marker8', panelId: 'panel8', position: { x: 31, y: 5, z: -2 }, img: locationHover},
+        { id: 'marker9', panelId: 'panel9', position: { x: -22, y: 6, z: -34 }, img: locationHover},
+        { id: 'marker10', panelId: 'panel10', position: { x: 15, y: 5, z: 2.5 }, img: locationHover},
+        { id: 'marker11', panelId: 'panel11', position: { x: -7, y: 5, z: -18 }, img: locationHover},
+        { id: 'marker12', panelId: 'panel12', position: { x: -3, y: 5, z: -28 }, img: locationHover},
+        { id: 'marker13', panelId: 'panel13', position: { x: 14, y: 5, z: 6.5 }, img: locationHover},
+        { id: 'marker14', panelId: 'panel14', position: { x: 0, y: 5, z: -35 }, img: locationHover}
     ];
 
     const vector = new THREE.Vector3();
