@@ -76,6 +76,7 @@ function resetearScroll(panelId) {
 }
 
 function abrirPanelPorUID(uid) {
+    //cierra paneles si no hay tarjeta
     if (uid === 'noHayTarjeta') {
         ['panel1', 'panel2', 'panel3', 'panel4', 'panel5', 'panel6', 'panel7', 'panel8', 'panel9', 'panel10',
             'panel11', 'panel12', 'panel13', 'panel14'].forEach(panelId => {
