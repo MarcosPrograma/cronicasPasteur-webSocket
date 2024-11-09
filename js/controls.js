@@ -104,8 +104,8 @@ export function setearControles(camera, renderer) {
     if(esMobile){
         //--- config de controles para movil ---
         //distancia del zoom
-        controls.minDistance = 22;
-        controls.maxDistance = 70;
+        controls.minDistance = 50;
+        controls.maxDistance = 90;
 
         //limites de la orbita en vertical
         controls.minPolarAngle = 0;
@@ -131,8 +131,8 @@ export function setearControles(camera, renderer) {
     } else {
         //--- config de controles para escritorio ---
         //distancia del zoom
-        controls.minDistance = 22;
-        controls.maxDistance = 70;
+        controls.minDistance = 40;
+        controls.maxDistance = 80;
         
         //limites de la orbita en vertical
         controls.minPolarAngle = 0;
