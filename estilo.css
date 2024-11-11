@@ -718,7 +718,7 @@ header:hover img {
 
   .panel_menu_opciones_botones {
     padding-left: 0;
-    
+    padding-bottom: 4rem;
   }
 
   .panel_menu_opciones_botones button {
@@ -735,6 +735,7 @@ header:hover img {
   #acercaDe{
     width: 100%;
     right: -100%;
+    padding-bottom: 4rem;
   }
 
   #acercaDe h2 {

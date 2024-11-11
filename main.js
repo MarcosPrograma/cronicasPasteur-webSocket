@@ -7,12 +7,15 @@ import { setearControles, setearRaycaster } from "./js/controls.js";
 import { cargarMundo, cargarObjeto } from "./js/loader.js";
 import { setearLuces } from "./js/light.js";
 import { interacciones, marcadores, iniciarCarrusel, stepper } from './js/interactions.js';
+import { wsConnect } from "./js/clienteWeb.js";
 
 //Camara
 const camera = setearCamera();
 
 //Controles
 const controls = setearControles(camera, renderer);
+
+wsConnect(camera); 
 
 //Cargar modelo
 cargarMundo(scene);

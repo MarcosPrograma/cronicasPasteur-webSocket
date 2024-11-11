@@ -5,7 +5,7 @@ export function setearLuces(scene) {
     scene.add(luzAmbiental);
 
     //Dos luces direcionales para que se vean las caras de los modelos
-    const luzDireccional1 = new THREE.DirectionalLight(0xffffff, 1.5);
+    const luzDireccional1 = new THREE.DirectionalLight(0xffffff, 1);
     luzDireccional1.position.set(50, 50, 50); 
     luzDireccional1.castShadow = true; 
     luzDireccional1.shadow.mapSize.width = 2048; //Calidad de la sombra en el mapa

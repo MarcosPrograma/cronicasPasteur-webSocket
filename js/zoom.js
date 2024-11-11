@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 let posicionInicialCamara = new THREE.Vector3();
-const posicionDefault = new THREE.Vector3(23, 46, 46); 
+const posicionDefault = new THREE.Vector3(56, 23, 52); 
 
 //ocultar marcadores
 function toggleMarcadores(mostrar) {
@@ -26,6 +26,12 @@ export function setearPosicionCamara(camera, targetPosition, lookAtPosition){
 
 //animacion de la camara 
 export function animacionCamara(camera, targetPosition, lookAtPosition, duration = 1000) {
+
+    if (!camera || !camera.position) {
+        //console.log('Camera is undefined or does not have a position property');
+        return;
+    }
+
     toggleMarcadores(false);
     
     const startPosition = new THREE.Vector3().copy(camera.position); //posicion actual de la camara
@@ -69,6 +75,12 @@ export function inicializarCamara(camera){
 
 //zoomIn
 export function zoomInObjeto(camera, targetPosition, duration = 1000) {
+
+    if (!camera || !camera.position) {
+        //console.log('Camera is undefined or does not have a position property');
+        return;
+    }
+
     posicionInicialCamara.copy(camera.position); //guardar posicion
 
     toggleMarcadores(false);
@@ -113,6 +125,12 @@ export function zoomInObjeto(camera, targetPosition, duration = 1000) {
 
 //zoomOut
 export function zoomOutObjeto(camera, duration = 1000) {
+
+    if (!camera || !camera.position) {
+        //console.log('Camera is undefined or does not have a position property');
+        return;
+    }
+
     if (posicionInicialCamara.equals(new THREE.Vector3(0, 0, 0))) {
         posicionInicialCamara.copy(posicionDefault);
     }
