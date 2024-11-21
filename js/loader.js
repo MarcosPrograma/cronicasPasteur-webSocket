@@ -7,6 +7,7 @@ const manager = pantallaCarga();
 // Cargar plano del mundo
 export function cargarMundo(scene){
     const loader = new GLTFLoader(manager).setPath('/models/');
+    //let mundoMesh = null;
 
     loader.load('scene.gltf', (gltf) => {
         console.log('Cargando mundo');

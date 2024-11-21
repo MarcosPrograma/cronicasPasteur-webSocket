@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { animacionCamara, zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
-import locationHover from '../src/img/locationHover.png'; 
+import locationHover from '../src/img/locationHover.png';
 
 //----------- Paneles ------------
 export function interacciones(camera) {
@@ -11,10 +11,11 @@ export function interacciones(camera) {
         const panel_menu = document.getElementById('panel_menu'); //Menu
         const acercaDe = document.getElementById('acercaDe'); //AcercaDe
         const divInvisible = document.getElementById('divInvisible'); //Fondo negro
-        let panelActualmenteAbierto = null; 
+        let panelActualmenteAbierto = null;
 
         function actualizarDivInvisible() {
             const algunPanelAbierto = Array.from(paneles).some(panel => panel.classList.contains('mostrar')) || acercaDe.classList.contains('mostrar') || panel_menu.classList.contains('mostrar');
+
             if (algunPanelAbierto) {
                 divInvisible.classList.add('mostrar');
             } else {
@@ -50,7 +51,7 @@ export function interacciones(camera) {
         if (abrirMenu) {
             abrirMenu.addEventListener('click', function () {
                 panel_menu.classList.toggle('mostrar');
-                if(panel_menu.classList.contains('mostrar')){
+                if (panel_menu.classList.contains('mostrar')) {
                     panel_menu.scrollTop = 0;
                 }
                 actualizarDivInvisible();
@@ -62,14 +63,13 @@ export function interacciones(camera) {
             boton.addEventListener('click', function () {
                 const panelDesplegable = this.closest('.panelDesplegable') || acercaDe;
 
-                if (this.closest('#panel_menu')){
+                if (this.closest('#panel_menu')) {
                     panel_menu.classList.remove('mostrar');
                     panel_menu.scrollTop = 0;
                 } else if (panelDesplegable) {
                     panelDesplegable.classList.remove('mostrar');
                     panelDesplegable.scrollTop = 0;
                     panelActualmenteAbierto = null;
-
                     zoomOutObjeto(camera);
                 }
                 actualizarDivInvisible();
@@ -90,24 +90,24 @@ export function interacciones(camera) {
 
         //-------- swipe -------- 
         let touchStartX = 0;
-        let touchEndX = 0; 
+        let touchEndX = 0;
 
-        function swipe(){
-            if(touchEndX < touchStartX - 50){ //swipe a la izquierda
-                paneles.forEach(panel =>{ 
-                    if (panel.classList.contains('mostrar')){
+        function swipe() {
+            if (touchEndX < touchStartX - 50) { //swipe a la izquierda
+                paneles.forEach(panel => {
+                    if (panel.classList.contains('mostrar')) {
                         panel.classList.remove('mostrar');
                         panel.scrollTop = 0;
                     }
                 });
                 panelActualmenteAbierto = null;
                 actualizarDivInvisible();
-            } else if (touchEndX > touchStartX + 50 ){ //swipe a la derecha
-                if(panel_menu.classList.contains('mostrar')){
+            } else if (touchEndX > touchStartX + 50) { //swipe a la derecha
+                if (panel_menu.classList.contains('mostrar')) {
                     panel_menu.classList.remove('mostrar');
                     panel_menu.scrollTop = 0;
                 }
-                if(acercaDe.classList.contains('mostrar')){
+                if (acercaDe.classList.contains('mostrar')) {
                     acercaDe.classList.remove('mostrar');
                     acercaDe.scrollTop = 0;
                 }
@@ -130,20 +130,20 @@ export function interacciones(camera) {
 
 //----------- Marcadores ------------
 const posicionesCamara = { //setear una posicion de camara para el zoomIn
-    'panel1': {x: 13, y: 12, z: 12},
-    'panel2': { x: 9, y: 12, z: 45 },
-    'panel3': { x: -44, y: 12, z: -2 },
-    'panel4': {x: -15, y: 12, z: 32},
-    'panel5': {x: 37, y: 12, z: 39},
-    'panel6': {x: 20, y: 12, z: -8},
-    'panel7': {x: -36, y: 11, z: -40},
-    'panel8': {x: 53, y: 12, z: -3},
-    'panel9': {x: -32, y: 12, z: -48},
-    'panel10': {x: 29, y: 10, z: 4},
-    'panel11': {x: -16, y: 12, z: -37},
-    'panel12': {x: -4, y: 12, z: -40},
-    'panel13': {x: 30, y: 12, z: 14},
-    'panel14': {x: -2, y: 12, z: -57},
+    'panel1': {x: 31, y: 23, z: 31},
+    'panel2': { x: 12, y: 16, z: 48 },
+    'panel3': { x: -50, y: 13, z: -3 },
+    'panel4': {x: -25, y: 17, z: 39},
+    'panel5': {x: 40, y: 13, z: 42},
+    'panel6': {x: 34, y: 22, z: -29},
+    'panel7': {x: -40, y: 12, z: -46},
+    'panel8': {x: 53, y: 13, z: -3},
+    'panel9': {x: -37, y: 16, z: -52},
+    'panel10': {x: 46, y: 17, z: 8},
+    'panel11': {x: -16, y: 14, z: -37},
+    'panel12': {x: -8, y: 14, z: -47},
+    'panel13': {x: 41, y: 18, z: 22},
+    'panel14': {x: 0, y: 18, z: -63},
 };
 
 export function marcadores(scene, camera) {
@@ -151,20 +151,20 @@ export function marcadores(scene, camera) {
     const divInvisible = document.getElementById('divInvisible'); // Fondo negro
 
     const marcadores = [
-        { id: 'marker1', panelId: 'panel1', position: { x: 0.5, y: 5, z: 0 }, img: locationHover},
-        { id: 'marker2', panelId: 'panel2', position: { x: 6, y: 6, z: 29 }, img: locationHover},
-        { id: 'marker3', panelId: 'panel3', position: { x: -30, y: 6, z: -1 }, img: locationHover},
-        { id: 'marker4', panelId: 'panel4', position: { x: -7, y: 5, z: 15 }, img: locationHover},
-        { id: 'marker5', panelId: 'panel5', position: { x: 27, y: 6, z: 27 }, img: locationHover},
-        { id: 'marker6', panelId: 'panel6', position: { x: 6, y: 5, z: -2 }, img: locationHover},
-        { id: 'marker7', panelId: 'panel7', position: { x: -26, y: 5, z: -29 }, img: locationHover},
-        { id: 'marker8', panelId: 'panel8', position: { x: 31, y: 5, z: -2 }, img: locationHover},
-        { id: 'marker9', panelId: 'panel9', position: { x: -22, y: 6, z: -34 }, img: locationHover},
-        { id: 'marker10', panelId: 'panel10', position: { x: 15, y: 5, z: 2.5 }, img: locationHover},
-        { id: 'marker11', panelId: 'panel11', position: { x: -7, y: 5, z: -18 }, img: locationHover},
-        { id: 'marker12', panelId: 'panel12', position: { x: -3, y: 5, z: -28 }, img: locationHover},
-        { id: 'marker13', panelId: 'panel13', position: { x: 14, y: 5, z: 6.5 }, img: locationHover},
-        { id: 'marker14', panelId: 'panel14', position: { x: 0, y: 5, z: -35 }, img: locationHover}
+        { id: 'marker1', panelId: 'panel1', position: { x: 0.5, y: 5, z: 0 }, img: locationHover },
+        { id: 'marker2', panelId: 'panel2', position: { x: 6, y: 6, z: 29 }, img: locationHover },
+        { id: 'marker3', panelId: 'panel3', position: { x: -30, y: 6, z: -1 }, img: locationHover },
+        { id: 'marker4', panelId: 'panel4', position: { x: -7, y: 5, z: 15 }, img: locationHover },
+        { id: 'marker5', panelId: 'panel5', position: { x: 27, y: 6, z: 27 }, img: locationHover },
+        { id: 'marker6', panelId: 'panel6', position: { x: 6, y: 5, z: -2 }, img: locationHover },
+        { id: 'marker7', panelId: 'panel7', position: { x: -26, y: 5, z: -29 }, img: locationHover },
+        { id: 'marker8', panelId: 'panel8', position: { x: 31, y: 5, z: -2 }, img: locationHover },
+        { id: 'marker9', panelId: 'panel9', position: { x: -22, y: 6, z: -34 }, img: locationHover },
+        { id: 'marker10', panelId: 'panel10', position: { x: 15, y: 5, z: 2.5 }, img: locationHover },
+        { id: 'marker11', panelId: 'panel11', position: { x: -7, y: 5, z: -18 }, img: locationHover },
+        { id: 'marker12', panelId: 'panel12', position: { x: -3, y: 5, z: -28 }, img: locationHover },
+        { id: 'marker13', panelId: 'panel13', position: { x: 14, y: 5, z: 6.5 }, img: locationHover },
+        { id: 'marker14', panelId: 'panel14', position: { x: 0, y: 5, z: -35 }, img: locationHover }
     ];
 
     const vector = new THREE.Vector3();
@@ -181,6 +181,7 @@ export function marcadores(scene, camera) {
 
         marcadores.forEach(marcador => {
             let marcadorElement = document.getElementById(marcador.id);
+
             if (!marcadorElement) {
                 marcadorElement = document.createElement('div');
                 marcadorElement.className = 'marcador';
@@ -208,25 +209,41 @@ export function marcadores(scene, camera) {
                     const targetPosition = new THREE.Vector3(marcador.position.x, marcador.position.y, marcador.position.z);
                     const posicionCamara = posicionesCamara[marcador.panelId];
 
-                    if(posicionCamara){
+                    if (posicionCamara) {
                         animacionCamara(camera, posicionCamara, targetPosition, 1500);
                     }
                     //zoomInObjeto(camera, targetPosition, 1000);
                 });
             }
-            
+
             vector.set(marcador.position.x, marcador.position.y, marcador.position.z);
             vector.project(camera);
+
+            // ocultar marcador si está detrás de la cámara
+            if (vector.z < 0 || vector.z > 1) {
+                marcadorElement.style.display = 'none';
+                return;
+            } else {
+                marcadorElement.style.display = 'block';
+            }
 
             const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
             const y = (vector.y * -0.5 + 0.5) * window.innerHeight;
 
-            //guardar posiciones de los marcadores
-            if(!marcadoresPosiciones[marcador.id]){
-                marcadoresPosiciones[marcador.id] = {x, y};
-            }   
+            // si la cámara está demasiado cerca del marcador, se oculta
+            const marcadorPosicion = new THREE.Vector3(marcador.position.x, marcador.position.y, marcador.position.z);
+            const distanciaCamara = camera.position.distanceTo(marcadorPosicion);
+
+            if (distanciaCamara < 1) {
+                marcadorElement.style.display = 'none';
+                return;
+            }
 
             //*intento* suavizado para que no salte con el zoom *tos* no funciona del todo *tos*
+            if (!marcadoresPosiciones[marcador.id]) {
+                marcadoresPosiciones[marcador.id] = { x, y };
+            }
+
             const posicionPrevia = marcadoresPosiciones[marcador.id];
             posicionPrevia.x = THREE.MathUtils.lerp(posicionPrevia.x, x, 0.6);
             posicionPrevia.y = THREE.MathUtils.lerp(posicionPrevia.y, y, 0.6);
@@ -236,7 +253,7 @@ export function marcadores(scene, camera) {
     }
 
     //actualizarMarcadorPosicion();
-    
+
     divInvisible.addEventListener('click', () => {
         document.querySelectorAll('.panelDesplegable').forEach(panel => {
             panel.classList.remove('mostrar');
@@ -315,7 +332,7 @@ export function stepper() {
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 500);
-        
+
         //document.getElementById('stepper-overlay').style.display = 'none';
     }
 

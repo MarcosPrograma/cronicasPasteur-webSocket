@@ -15,7 +15,7 @@ const camera = setearCamera();
 //Controles
 const controls = setearControles(camera, renderer);
 
-wsConnect(camera); 
+//wsConnect(camera); 
 
 //Cargar modelo
 cargarMundo(scene);
@@ -57,27 +57,6 @@ stepper();
 //Sincronizar marcadores
 const actualizarMarcador = marcadores(scene, camera);
 
-/* //Mini-paneo al iniciar 
-const puntoA = new THREE.Vector3(60, 30, 0);
-const puntoB = new THREE.Vector3(45, 15, 30);
-let progreso = 0;
-let enPaneo = false;
-
-function paneoCamara() {
-    if (enPaneo) {
-        progreso += 0.02; //velocidad de interpolacion
-        if (progreso < 1) {
-            camera.position.lerpVectors(puntoA, puntoB, progreso);
-            camera.lookAt(0, 0, 0);
-            requestAnimationFrame(paneoCamara);
-        } else {
-            camera.position.copy(puntoB);
-            enPaneo = false;
-        }
-    }
-}
-*/
-
 //Resize
 window.addEventListener('resize', () => {
     const width = window.innerWidth;
@@ -89,13 +68,26 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 });
 
+/*
+let angle = 0; // Ángulo inicial en radianes
+const radius = 75; // Radio de la órbita
+const orbitSpeed = 0.002; // Velocidad de la órbita
+*/
+
 //Update
 function animate() {
     requestAnimationFrame(animate);
 
+    /*
+    angle += orbitSpeed; // Incrementar el ángulo para el movimiento
+    camera.position.x = radius * Math.cos(angle);
+    camera.position.z = radius * Math.sin(angle);
+    camera.lookAt(0, 0, 0); // Apuntar hacia el centro de la escena
+    */
+
     controls.update();
     actualizarMarcador();
-    //paneoCamara();
+    //paneoCamara();    
 
     //console.log(`Posición de la cámara: X=${camera.position.x}, Y=${camera.position.y}, Z=${camera.position.z}`);
 

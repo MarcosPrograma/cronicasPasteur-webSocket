@@ -31,7 +31,7 @@ export function wsConnect(camera) {
             ui.classList.remove('ocultar-UI');
         });
 
-        setTimeout(() => wsConnect(camera), 2000); //volver a conectar
+        //setTimeout(() => wsConnect(camera), 2000); //volver a conectar
     };
 
     websocket.onerror = function (evt) {

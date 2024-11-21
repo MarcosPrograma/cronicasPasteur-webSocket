@@ -19,25 +19,25 @@ function toggleMarcadores(mostrar) {
 
 //Setear una posicion de camara para el zoomIn
 const posicionesCamara = {
-    'panel1': {x: 13, y: 12, z: 12},
-    'panel2': { x: 9, y: 12, z: 45 },
-    'panel3': { x: -44, y: 12, z: -2 },
-    'panel4': {x: -15, y: 12, z: 32},
-    'panel5': {x: 37, y: 12, z: 39},
-    'panel6': {x: 20, y: 12, z: -8},
-    'panel7': {x: -36, y: 11, z: -40},
-    'panel8': {x: 53, y: 12, z: -3},
-    'panel9': {x: -32, y: 12, z: -48},
-    'panel10': {x: 29, y: 10, z: 4},
-    'panel11': {x: -16, y: 12, z: -37},
-    'panel12': {x: -4, y: 12, z: -40},
-    'panel13': {x: 30, y: 12, z: 14},
-    'panel14': {x: -2, y: 12, z: -57},
+    'panel1': {x: 31, y: 23, z: 31},
+    'panel2': { x: 12, y: 16, z: 48 },
+    'panel3': { x: -50, y: 13, z: -3 },
+    'panel4': {x: -25, y: 17, z: 39},
+    'panel5': {x: 40, y: 13, z: 42},
+    'panel6': {x: 34, y: 22, z: -29},
+    'panel7': {x: -40, y: 12, z: -46},
+    'panel8': {x: 53, y: 13, z: -3},
+    'panel9': {x: -37, y: 16, z: -52},
+    'panel10': {x: 46, y: 17, z: 8},
+    'panel11': {x: -16, y: 14, z: -37},
+    'panel12': {x: -8, y: 14, z: -47},
+    'panel13': {x: 41, y: 18, z: 22},
+    'panel14': {x: 0, y: 18, z: -63},
 
-    'panel16': {x: -43, y: 10, z: 20},
-    'panel17': {x: 45, y: 10, z: -25},
-    'panel18': {x: -36, y: 10, z: 39},
-    'panel19': {x: 38, y: 10, z: -38},
+    'panel16': {x: -44, y: 10, z: 21},
+    'panel17': {x: 49, y: 10, z: -28},
+    'panel18': {x: -41, y: 12, z: 43},
+    'panel19': {x: 40, y: 10, z: -38},
 };
 
 export function setearRaycaster(camera, scene) {
@@ -45,6 +45,7 @@ export function setearRaycaster(camera, scene) {
 
     //Interaccion por clics
     function onMouseClick(event) {
+        if (divInvisible.classList.contains('mostrar')) return;
 
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -66,11 +67,15 @@ export function setearRaycaster(camera, scene) {
 
                 toggleMarcadores(false);
 
-                animacionCamara(camera, posicionCamara, targetPosition, 1500);
-
+                if (posicionCamara) {
+                    animacionCamara(camera, posicionCamara, targetPosition, 1500);
+                }
+                
+                /*
                 setTimeout(() => {
                   zoomInObjeto(camera, targetPosition);
                 }, 1500);
+                */
             }
 
             //si hay un panel abierto, se debe cerrar el otro 
