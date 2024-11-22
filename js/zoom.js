@@ -3,6 +3,9 @@ import * as THREE from 'three';
 let posicionInicialCamara = new THREE.Vector3();
 const posicionDefault = new THREE.Vector3(56, 23, 52); 
 
+let ultimaPosicion = null; 
+let ultimaOrientacion = null; 
+
 //ocultar marcadores
 function toggleMarcadores(mostrar) {
     const marcadores = document.querySelectorAll('.marcador');
@@ -31,6 +34,10 @@ export function animacionCamara(camera, targetPosition, lookAtPosition, duration
         //console.log('Camera is undefined or does not have a position property');
         return;
     }
+
+    ultimaPosicion = new THREE.Vector3().copy(camera.position);
+    ultimaOrientacion = new THREE.Vector3();
+    camera.getWorldDirection(ultimaOrientacion);
 
     toggleMarcadores(false);
     
@@ -62,6 +69,15 @@ export function animacionCamara(camera, targetPosition, lookAtPosition, duration
     }
 
     requestAnimationFrame(animate);
+}
+
+export function restaurarUltimaPosicion(camera, duration = 1000) {
+    if (!ultimaPosicion || !ultimaOrientacion) {
+        //console.warn('No hay una última posición almacenada');
+        return;
+    }
+
+    animacionCamara(camera, ultimaPosicion, ultimaOrientacion, duration);
 }
 
 //inicializar en una posicion default, para tener una posicion inicial y no un 0,0,0

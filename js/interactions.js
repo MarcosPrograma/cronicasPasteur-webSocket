@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { animacionCamara, zoomInObjeto, zoomOutObjeto } from "/js/zoom.js";
+import { animacionCamara, zoomInObjeto, zoomOutObjeto, restaurarUltimaPosicion } from "/js/zoom.js";
 import locationHover from '../src/img/locationHover.png';
 
 //----------- Paneles ------------
@@ -70,7 +70,8 @@ export function interacciones(camera) {
                     panelDesplegable.classList.remove('mostrar');
                     panelDesplegable.scrollTop = 0;
                     panelActualmenteAbierto = null;
-                    zoomOutObjeto(camera);
+                    //zoomOutObjeto(camera);
+                    restaurarUltimaPosicion(camera, 1000);
                 }
                 actualizarDivInvisible();
             });
@@ -85,6 +86,7 @@ export function interacciones(camera) {
             acercaDe.scrollTop = 0;
             panel_menu.classList.remove('mostrar');
             panel_menu.scrollTop = 0;
+            restaurarUltimaPosicion(camera, 1000);
             actualizarDivInvisible();
         });
 
@@ -208,11 +210,11 @@ export function marcadores(scene, camera) {
 
                     const targetPosition = new THREE.Vector3(marcador.position.x, marcador.position.y, marcador.position.z);
                     const posicionCamara = posicionesCamara[marcador.panelId];
-
+                    
                     if (posicionCamara) {
+                        //zoomInObjeto(camera, posicionCamara, targetPosition, 1500);
                         animacionCamara(camera, posicionCamara, targetPosition, 1500);
                     }
-                    //zoomInObjeto(camera, targetPosition, 1000);
                 });
             }
 
@@ -259,6 +261,7 @@ export function marcadores(scene, camera) {
             panel.classList.remove('mostrar');
         });
         divInvisible.classList.remove('mostrar');
+        //restaurarUltimaPosicion(camera, 1000);
     });
 
     return actualizarMarcadorPosicion;

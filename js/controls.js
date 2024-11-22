@@ -67,9 +67,11 @@ export function setearRaycaster(camera, scene) {
 
                 toggleMarcadores(false);
 
-                if (posicionCamara) {
+                if (posicionCamara) {;
                     animacionCamara(camera, posicionCamara, targetPosition, 1500);
                 }
+
+                //zoomInObjeto(camera, targetPosition, 1500);
                 
                 /*
                 setTimeout(() => {
